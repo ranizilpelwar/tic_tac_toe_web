@@ -10,18 +10,15 @@ before do
 end
 
 get '/match_types' do
-  match_manager = MatchTypeManager.new
-  data = {
-    "match1" => {"option" => match_manager.input_choices[0].to_s, 
-      "player1_type" => match_manager.matches[0].player1_type.selected_option.to_s,
-      "player2_type" => match_manager.matches[0].player2_type.selected_option.to_s},
-    "match2" => {"option" => match_manager.input_choices[1].to_s, 
-      "player1_type" => match_manager.matches[1].player1_type.selected_option.to_s,
-      "player2_type" => match_manager.matches[1].player2_type.selected_option.to_s},
-    "match3" => {"option" => match_manager.input_choices[2].to_s, 
-      "player1_type" => match_manager.matches[2].player1_type.selected_option.to_s,
-      "player2_type" => match_manager.matches[2].player2_type.selected_option.to_s}
-  }
+  match_manager = TicTacToeRZ::MatchTypeManager.new
+  data = [
+      {"player1_type" => match_manager.player_type(1,1), "player2_type" => match_manager.player_type(1,2)},
+      {"player1_type" => match_manager.player_type(2,1), "player2_type" => match_manager.player_type(2,2)},
+      {"player1_type" => match_manager.player_type(3,1), "player2_type" => match_manager.player_type(3,2)}]
   data.to_json
 end
 
+post '/player' do
+  player = TicTacToeRZ::Player.new(TicTacToeRZ::PlayerType.new(:Human), params[:symbol])
+  "success" if !player.nil?
+end
