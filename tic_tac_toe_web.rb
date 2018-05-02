@@ -43,3 +43,47 @@ post '/game' do
   }
   game.to_json
 end
+
+put '/human_players_turn' do
+  current_player_symbol = params[:current_player_symbol]
+  tile_on_board = params[:tile_on_board]
+  board = params[:board]
+  game_board = TicTacToeRZ::GameBoard.new(board)
+  return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
+  valid_move = return_result.is_valid_move
+  spot = return_result.index_of_board
+  game = {}
+  success = false
+  if !valid_move
+    data = { "game": {
+           "language_tag": params[:language_tag],
+           "match_number": params[:match_number],
+           "player1_symbol": params[:player1_symbol], 
+           "player2_symbol": params[:player2_symbol],
+           "current_player_symbol": params[:current_player_symbol],
+           "board": board,
+           "record_moves": params[:record_moves]
+         },
+         "success?": success
+    }
+  else
+    record_last_move(current_player_symbol, spot) if params[:record_moves]
+    game_board.update_board(spot.to_i, current_player_symbol)
+    success = true
+    data = { "game": {
+           "language_tag": params[:language_tag],
+           "match_number": params[:match_number],
+           "player1_symbol": params[:player1_symbol], 
+           "player2_symbol": params[:player2_symbol],
+           "current_player_symbol": params[:current_player_symbol],
+           "board": game_board.board,
+           "record_moves": params[:record_moves]
+           },
+          "success?": success
+    }
+  end
+  data.to_json
+end
+
+def record_last_move(current_player_symbol, spot)
+end
