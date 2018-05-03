@@ -45,7 +45,9 @@ post '/game' do
          "player2_symbol": player2_symbol,
          "current_player_symbol": player_manager.current_player.symbol,
          "board": game_board.board,
-         "record_moves": player_movement_manager.moves_recordable?(match_number)}
+         "record_moves": player_movement_manager.moves_recordable?(match_number),
+         "last_move_for_player1": -1,
+         "last_move_for_player2": -1}
        }
   puts "response data = #{data}"
   data.to_json
@@ -62,29 +64,45 @@ put '/human_players_turn' do
   game = {}
   success = false
   puts "valid_move = #{valid_move}"
+  player1_symbol = @request_data['game']['player1_symbol']
+  player2_symbol = @request_data['game']['player2_symbol']
+  current_player_symbol = @request_data['game']['current_player_symbol']
+  last_move_for_player1 = @request_data['game']['last_move_for_player1']
+  last_move_for_player2 = @request_data['game']['last_move_for_player2']
+  record_moves = @request_data['game']['record_moves']
   if !valid_move
     data = { "game": {
            "language_tag": @request_data['game']['language_tag'],
            "match_number": @request_data['game']['match_number'],
-           "player1_symbol": @request_data['game']['player1_symbol'], 
-           "player2_symbol": @request_data['game']['player2_symbol'],
-           "current_player_symbol": @request_data['game']['current_player_symbol'],
+           "player1_symbol": player1_symbol,
+           "player2_symbol": player2_symbol,
+           "current_player_symbol": current_player_symbol,
            "board": board,
-           "record_moves": @request_data['game']['record_moves']
+           "record_moves": record_moves,
+           "last_move_for_player1": last_move_for_player1,
+           "last_move_for_player2": last_move_for_player2
          }
     }
   else
-    record_last_move(current_player_symbol, spot) if @request_data['record_moves']
+    if record_moves
+        if current_player_symbol == player1_symbol
+          last_move_for_player1 = spot
+        elsif current_player_symbol == player2_symbol
+          last_move_for_player2 = spot
+        end
+    end
     game_board.update_board(spot.to_i, current_player_symbol)
     success = true
     data = { "game": {
            "language_tag": @request_data['game']['language_tag'],
            "match_number": @request_data['game']['match_number'],
-           "player1_symbol": @request_data['game']['player1_symbol'], 
-           "player2_symbol": @request_data['game']['player2_symbol'],
-           "current_player_symbol": @request_data['game']['current_player_symbol'],
+           "player1_symbol": player1_symbol, 
+           "player2_symbol": player2_symbol,
+           "current_player_symbol": current_player_symbol,
            "board": game_board.board,
-           "record_moves": @request_data['game']['record_moves']
+           "record_moves": @request_data['game']['record_moves'],
+           "last_move_for_player1": last_move_for_player1,
+           "last_move_for_player2": last_move_for_player2
            }
     }
   end
@@ -92,5 +110,6 @@ put '/human_players_turn' do
   data.to_json
 end
 
-def record_last_move(current_player_symbol, spot)
+def record_last_move(player_number, spot)
+    @player_movement_manager.update_last_move_for_player(player_number, spot)
 end
