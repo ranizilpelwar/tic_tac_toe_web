@@ -23,7 +23,27 @@ get '/match_types' do
   data.to_json
 end
 
-put '/language' do
+put '/game_status' do
+  board = @request_data['game']['board']
+  player1_symbol = @request_data['game']['player1_symbol']
+  player2_symbol = @request_data['game']['player2_symbol']
+
+  tie_game = TicTacToeRZ::TieGameValidator.tie_game?(board)
+  game_over = false
+  winner = ""
+  if TicTacToeRZ::GameOverValidator.win_for_player?(player1_symbol, board)
+    game_over = true
+    winner = player1_symbol
+  elsif TicTacToeRZ::GameOverValidator.win_for_player?(player2_symbol, board)
+    game_over = true
+    winner = player2_symbol
+  end
+  data = {
+    "game_over": game_over,
+    "tie_game": tie_game,
+    "winner": winner
+  }
+  data.to_json
 end
 
 post '/game' do
