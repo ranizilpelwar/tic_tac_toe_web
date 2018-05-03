@@ -109,7 +109,3 @@ put '/human_players_turn' do
   puts "response data = #{data}"
   data.to_json
 end
-
-def record_last_move(player_number, spot)
-    @player_movement_manager.update_last_move_for_player(player_number, spot)
-end
