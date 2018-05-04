@@ -46,6 +46,7 @@ put '/game_status' do
       winner = player2_symbol
     end
   end
+  status 400
   data = {
       "statuses": {
           "game_over": game_over,
