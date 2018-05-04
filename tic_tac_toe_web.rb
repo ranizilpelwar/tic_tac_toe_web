@@ -24,24 +24,37 @@ get '/match_types' do
 end
 
 put '/game_status' do
-  board = @request_data['game']['board']
-  player1_symbol = @request_data['game']['player1_symbol']
-  player2_symbol = @request_data['game']['player2_symbol']
-
-  tie_game = TicTacToeRZ::TieGameValidator.tie_game?(board)
+  error_message = ""
+  tie_game = false
   game_over = false
   winner = ""
-  if TicTacToeRZ::GameOverValidator.win_for_player?(player1_symbol, board)
-    game_over = true
-    winner = player1_symbol
-  elsif TicTacToeRZ::GameOverValidator.win_for_player?(player2_symbol, board)
-    game_over = true
-    winner = player2_symbol
+  begin
+    board = @request_data['game']['board']
+    player1_symbol = @request_data['game']['player1_symbol']
+    player2_symbol = @request_data['game']['player2_symbol']
+  rescue SyntaxError, NoMethodError => error
+    error_message = "#{ error.class.name }: #{ error.message }"
+  else
+    if TicTacToeRZ::TieGameValidator.tie_game?(board)
+      tie_game = true
+      game_over = true
+    elsif TicTacToeRZ::GameOverValidator.win_for_player?(player1_symbol, board)
+      game_over = true
+      winner = player1_symbol
+    elsif TicTacToeRZ::GameOverValidator.win_for_player?(player2_symbol, board)
+      game_over = true
+      winner = player2_symbol
+    end
   end
   data = {
-    "game_over": game_over,
-    "tie_game": tie_game,
-    "winner": winner
+      "statuses": {
+          "game_over": game_over,
+          "tie_game": tie_game,
+          "winner": winner
+      },
+      "errors": {
+        "message": error_message
+      }
   }
   data.to_json
 end
@@ -53,11 +66,13 @@ post '/game' do
   match_manager = TicTacToeRZ::MatchTypeManager.new
   player1_symbol = @request_data['first_player_symbol']
   player2_symbol = @request_data['second_player_symbol']
+
   player1 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,1), player1_symbol)
   player2 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,2), player2_symbol)
   player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
   game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
   player_movement_manager = TicTacToeRZ::PlayerMovementManager.new(match_manager.get_match_type(match_number))
+
   data = { "game": {
          "language_tag": language_tag,
          "match_number": match_number,
