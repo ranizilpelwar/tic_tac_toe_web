@@ -13,8 +13,6 @@ module DataParser
 
   def self.parse_game(request_data)
     game = {}
-    game[:current_player_symbol] = parse(request_data, 'game', 'current_player_symbol')
-    game[:tile_on_board] = parse(request_data, 'actions','tile_on_board')
     game[:board] = parse(request_data, 'game','board')
     game[:language_tag] = parse(request_data, 'game','language_tag')
     game[:match_number] = parse(request_data, 'game','match_number')
