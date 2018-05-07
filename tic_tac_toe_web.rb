@@ -151,23 +151,28 @@ put '/computer_players_turn' do
     depth = 5 # The most # of actions that can be taken before a tie or win can occur in the game.
     best_max_move = -20000
     best_min_move = 20000
-    match_manager = TicTacToeRZ::MatchTypeManager.new
-    player1 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],1), game[:player1_symbol])
-    player2 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],2), game[:player2_symbol])
-    player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
-    game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
-    computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
-    current_player_symbol = game[:current_player_symbol]
-    spot = computer_action.get_best_move(game_board.board, current_player_symbol, depth, best_max_move, best_min_move).index
-    if game[:record_moves]
-      if current_player_symbol == game[:player1_symbol]
-        game[:last_move_for_player1] = spot
-      elsif current_player_symbol == game[:player2_symbol]
-        game[:last_move_for_player2] = spot
+    begin
+      match_manager = TicTacToeRZ::MatchTypeManager.new
+      player1 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],1), game[:player1_symbol])
+      player2 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],2), game[:player2_symbol])
+      player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
+      game_board = TicTacToeRZ::GameBoard.new(game[:board])
+      computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
+      current_player_symbol = game[:current_player_symbol]
+      spot = computer_action.get_best_move(game_board.board, current_player_symbol, depth, best_max_move, best_min_move).index
+      if game[:record_moves]
+        if current_player_symbol == game[:player1_symbol]
+          game[:last_move_for_player1] = spot
+        elsif current_player_symbol == game[:player2_symbol]
+          game[:last_move_for_player2] = spot
+        end
       end
+      game_board.update_board(spot.to_i, current_player_symbol)
+      game[:board] = game_board.board
+    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+      game[:error_message] = "#{ error.class.name }: #{ error.message }"
+      status 400
     end
-    game_board.update_board(spot.to_i, current_player_symbol)
-    game[:board] = game_board.board
   end
   ResponseGenerator.generate_game(game)
 end
