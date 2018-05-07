@@ -39,7 +39,7 @@ put '/game_status' do
     board = DataParser.parse(@request_data, 'game', 'board')
     player1_symbol = DataParser.parse(@request_data, 'game', 'player1_symbol')
     player2_symbol = DataParser.parse(@request_data, 'game', 'player2_symbol')
-  rescue SyntaxError, NoMethodError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
@@ -66,7 +66,7 @@ post '/game' do
   player2_symbol = ""
   current_player_symbol = "" 
   board = ""
-  record_moves = ""
+  record_moves = false
   last_move_for_player1 = -1
   last_move_for_player2 = -1
   error_message = ""
