@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'tic_tac_toe_rz'
 require 'json'
+require_relative 'data/data_parser.rb'
 
 before do
 	headers 'Content-Type' => 'application/json'
@@ -29,7 +30,7 @@ put '/game_status' do
   game_over = false
   winner = ""
   begin
-    board = @request_data['game']['board']
+    board = DataParser.parse(@request_data, 'game', 'board')
     player1_symbol = @request_data['game']['player1_symbol']
     player2_symbol = @request_data['game']['player2_symbol']
   rescue SyntaxError, NoMethodError => error
