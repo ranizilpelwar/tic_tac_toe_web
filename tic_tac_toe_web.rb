@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'tic_tac_toe_rz'
 require 'json'
 require_relative 'data/data_parser.rb'
+require_relative 'response/response_generator.rb'
 
 before do
 	headers 'Content-Type' => 'application/json'
@@ -31,14 +32,15 @@ put '/game_status' do
   winner = ""
   begin
     board = DataParser.parse(@request_data, 'game', 'board')
-    player1_symbol = @request_data['game']['player1_symbol']
-    player2_symbol = @request_data['game']['player2_symbol']
+    player1_symbol = DataParser.parse(@request_data, 'game', 'player1_symbol')
+    player2_symbol = DataParser.parse(@request_data, 'game', 'player2_symbol')
   rescue SyntaxError, NoMethodError => error
     error_message = "#{ error.class.name }: #{ error.message }"
+    status 400
   else
     if TicTacToeRZ::TieGameValidator.tie_game?(board)
-      tie_game = true
       game_over = true
+      tie_game = true
     elsif TicTacToeRZ::GameOverValidator.win_for_player?(player1_symbol, board)
       game_over = true
       winner = player1_symbol
@@ -47,18 +49,9 @@ put '/game_status' do
       winner = player2_symbol
     end
   end
-  status 400
-  data = {
-      "statuses": {
-          "game_over": game_over,
-          "tie_game": tie_game,
-          "winner": winner
-      },
-      "errors": {
-        "message": error_message
-      }
-  }
-  data.to_json
+  data = {:error_message => error_message, :tie_game => tie_game, 
+          :game_over => game_over, :winner => winner}
+  ResponseGenerator.generate_game_status(data)
 end
 
 post '/game' do
