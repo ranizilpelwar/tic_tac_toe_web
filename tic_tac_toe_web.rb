@@ -76,7 +76,7 @@ post '/game' do
     match_number = DataParser.parse(@request_data, nil, 'match_number').to_i
     player1_symbol = DataParser.parse(@request_data, nil, 'first_player_symbol')
     player2_symbol = DataParser.parse(@request_data, nil, 'second_player_symbol')
-  rescue SyntaxError, NoMethodError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
@@ -104,22 +104,22 @@ post '/game' do
 end
 
 put '/human_players_turn' do
-  current_player_symbol = @request_data['game']['current_player_symbol']
-  tile_on_board = @request_data['actions']['tile_on_board']
-  board = @request_data['game']['board']
+  current_player_symbol = DataParser.parse(@request_data, 'game', 'current_player_symbol')
+  tile_on_board = DataParser.parse(@request_data, 'actions','tile_on_board')
+  board = DataParser.parse(@request_data, 'game','board')
   game_board = TicTacToeRZ::GameBoard.new(board)
   return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
   valid_move = return_result.is_valid_move
   spot = return_result.index_of_board
   game = {}
   success = false
-  puts "valid_move = #{valid_move}"
-  player1_symbol = @request_data['game']['player1_symbol']
-  player2_symbol = @request_data['game']['player2_symbol']
-  current_player_symbol = @request_data['game']['current_player_symbol']
-  last_move_for_player1 = @request_data['game']['last_move_for_player1']
-  last_move_for_player2 = @request_data['game']['last_move_for_player2']
-  record_moves = @request_data['game']['record_moves']
+  error_message = ""
+  player1_symbol = DataParser.parse(@request_data, 'game','player1_symbol')
+  player2_symbol = DataParser.parse(@request_data, 'game','player2_symbol')
+  current_player_symbol = DataParser.parse(@request_data, 'game', 'current_player_symbol')
+  last_move_for_player1 = DataParser.parse(@request_data, 'game', 'last_move_for_player1')
+  last_move_for_player2 = DataParser.parse(@request_data, 'game', 'last_move_for_player2')
+  record_moves = DataParser.parse(@request_data, 'game', 'record_moves')
   if !valid_move
     data = { "game": {
            "language_tag": @request_data['game']['language_tag'],
@@ -142,7 +142,6 @@ put '/human_players_turn' do
         end
     end
     game_board.update_board(spot.to_i, current_player_symbol)
-    success = true
     data = { "game": {
            "language_tag": @request_data['game']['language_tag'],
            "match_number": @request_data['game']['match_number'],
@@ -156,6 +155,5 @@ put '/human_players_turn' do
            }
     }
   end
-  puts "response data = #{data}"
   data.to_json
 end
