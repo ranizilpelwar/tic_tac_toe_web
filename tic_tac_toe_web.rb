@@ -24,7 +24,7 @@ get '/match_types' do
       :error_message => error_message}
   rescue TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
-    data[:error_message] = error_message
+    data[:error_message] = error
     status 400
   end
   ResponseGenerator.generate_matches(data)
@@ -62,30 +62,27 @@ end
 post '/game' do
   #language_adapter = TicTacToeRZ::LanguageOptionsAdapter.new(directory)
   language_tag = "en"
-  match_number = @request_data['match_number'].to_i
-  match_manager = TicTacToeRZ::MatchTypeManager.new
-  player1_symbol = @request_data['first_player_symbol']
-  player2_symbol = @request_data['second_player_symbol']
+  match_number = DataParser.parse(@request_data, nil, 'match_number').to_i
+  player1_symbol = DataParser.parse(@request_data, nil, 'first_player_symbol')
+  player2_symbol = DataParser.parse(@request_data, nil, 'second_player_symbol')
 
+  match_manager = TicTacToeRZ::MatchTypeManager.new
   player1 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,1), player1_symbol)
   player2 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,2), player2_symbol)
   player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
   game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
   player_movement_manager = TicTacToeRZ::PlayerMovementManager.new(match_manager.get_match_type(match_number))
 
-  data = { "game": {
-         "language_tag": language_tag,
-         "match_number": match_number,
-         "player1_symbol": player1_symbol, 
-         "player2_symbol": player2_symbol,
-         "current_player_symbol": player_manager.current_player.symbol,
-         "board": game_board.board,
-         "record_moves": player_movement_manager.moves_recordable?(match_number),
-         "last_move_for_player1": -1,
-         "last_move_for_player2": -1}
-       }
-  puts "response data = #{data}"
-  data.to_json
+  data = {:language_tag => language_tag, 
+          :match_number => match_number, 
+          :player1_symbol => player1_symbol, 
+          :player2_symbol => player2_symbol,
+          :current_player_symbol => player_manager.current_player.symbol, 
+          :board => game_board.board, 
+          :record_moves => player_movement_manager.moves_recordable?(match_number), 
+          :last_move_for_player1 => -1, 
+          :last_move_for_player2 => -1}
+  ResponseGenerator.generate_game(data)
 end
 
 put '/human_players_turn' do
