@@ -18,10 +18,10 @@ get '/match_types' do
   error_message = ""
   match_manager = TicTacToeRZ::MatchTypeManager.new
   begin
-  data = {:match1_player1_type => match_manager.player_type(1,1), :match1_player2_type => match_manager.player_type(1,2),
-      :match2_player1_type => match_manager.player_type(2,1), :match2_player2_type => match_manager.player_type(2,2),
-      :match3_player1_type => match_manager.player_type(3,1), :match3_player2_type => match_manager.player_type(3,2),
-      :error_message => error_message}
+    data = {:match1_player1_type => match_manager.player_type(1,1), :match1_player2_type => match_manager.player_type(1,2),
+        :match2_player1_type => match_manager.player_type(2,1), :match2_player2_type => match_manager.player_type(2,2),
+        :match3_player1_type => match_manager.player_type(3,1), :match3_player2_type => match_manager.player_type(3,2),
+        :error_message => error_message}
   rescue TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     data[:error_message] = error
@@ -104,23 +104,30 @@ post '/game' do
 end
 
 put '/human_players_turn' do
-  game = DataParser.parse_game(@request_data)
-  game_board = TicTacToeRZ::GameBoard.new(game[:board])
-  tile_on_board = DataParser.parse(@request_data, 'actions', 'tile_on_board')
-  return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
-  valid_move = return_result.is_valid_move
-  spot = return_result.index_of_board
-  current_player_symbol = game[:current_player_symbol]
-  if valid_move
-    if game[:record_moves]
-        if current_player_symbol == game[:player1_symbol]
-          game[:last_move_for_player1] = spot
-        elsif current_player_symbol == game[:player2_symbol]
-          game[:last_move_for_player2] = spot
-        end
+  game = {}
+  begin
+    game = DataParser.parse_game(@request_data)
+    tile_on_board = DataParser.parse(@request_data, 'actions', 'tile_on_board')
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+    game[:error_message] = "#{ error.class.name }: #{ error.message }"
+    status 400
+  else 
+    game_board = TicTacToeRZ::GameBoard.new(game[:board])
+    return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
+    valid_move = return_result.is_valid_move
+    spot = return_result.index_of_board
+    current_player_symbol = game[:current_player_symbol]
+    if valid_move
+      if game[:record_moves]
+          if current_player_symbol == game[:player1_symbol]
+            game[:last_move_for_player1] = spot
+          elsif current_player_symbol == game[:player2_symbol]
+            game[:last_move_for_player2] = spot
+          end
+      end
+      game_board.update_board(spot.to_i, game[:current_player_symbol])
+      game[:board] = game_board.board
     end
-    game_board.update_board(spot.to_i, game[:current_player_symbol])
-    game[:board] = game_board.board
   end
   ResponseGenerator.generate_game(game)
 end
