@@ -122,9 +122,7 @@ put '/human_players_turn' do
   last_move_for_player1 = DataParser.parse(@request_data, 'game', 'last_move_for_player1')
   last_move_for_player2 = DataParser.parse(@request_data, 'game', 'last_move_for_player2')
   record_moves = DataParser.parse(@request_data, 'game', 'record_moves')
-  if !valid_move
-    
-  else
+  if valid_move
     if record_moves
         if current_player_symbol == player1_symbol
           last_move_for_player1 = spot
