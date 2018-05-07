@@ -104,44 +104,23 @@ post '/game' do
 end
 
 put '/human_players_turn' do
-  current_player_symbol = DataParser.parse(@request_data, 'game', 'current_player_symbol')
-  tile_on_board = DataParser.parse(@request_data, 'actions','tile_on_board')
-  board = DataParser.parse(@request_data, 'game','board')
-  game_board = TicTacToeRZ::GameBoard.new(board)
+  game = DataParser.parse_game(@request_data)
+  game_board = TicTacToeRZ::GameBoard.new(game[:board])
+  tile_on_board = DataParser.parse(@request_data, 'actions', 'tile_on_board')
   return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
   valid_move = return_result.is_valid_move
   spot = return_result.index_of_board
-  game = {}
-  success = false
-  error_message = ""
-  language_tag = DataParser.parse(@request_data, 'game','language_tag')
-  match_number = DataParser.parse(@request_data, 'game','match_number')
-  player1_symbol = DataParser.parse(@request_data, 'game','player1_symbol')
-  player2_symbol = DataParser.parse(@request_data, 'game','player2_symbol')
-  current_player_symbol = DataParser.parse(@request_data, 'game', 'current_player_symbol')
-  last_move_for_player1 = DataParser.parse(@request_data, 'game', 'last_move_for_player1')
-  last_move_for_player2 = DataParser.parse(@request_data, 'game', 'last_move_for_player2')
-  record_moves = DataParser.parse(@request_data, 'game', 'record_moves')
+  current_player_symbol = game[:current_player_symbol]
   if valid_move
-    if record_moves
-        if current_player_symbol == player1_symbol
-          last_move_for_player1 = spot
-        elsif current_player_symbol == player2_symbol
-          last_move_for_player2 = spot
+    if game[:record_moves]
+        if current_player_symbol == game[:player1_symbol]
+          game[:last_move_for_player1] = spot
+        elsif current_player_symbol == game[:player2_symbol]
+          game[:last_move_for_player2] = spot
         end
     end
-    game_board.update_board(spot.to_i, current_player_symbol)
-    board = game_board.board
+    game_board.update_board(spot.to_i, game[:current_player_symbol])
+    game[:board] = game_board.board
   end
-  data = {:language_tag => language_tag, 
-        :match_number => match_number, 
-        :player1_symbol => player1_symbol, 
-        :player2_symbol => player2_symbol,
-        :current_player_symbol => current_player_symbol, 
-        :board => board, 
-        :record_moves => record_moves, 
-        :last_move_for_player1 => last_move_for_player1, 
-        :last_move_for_player2 => last_move_for_player2,
-        :error_message => error_message}
-  ResponseGenerator.generate_game(data)
+  ResponseGenerator.generate_game(game)
 end
