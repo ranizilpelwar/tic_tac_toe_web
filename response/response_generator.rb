@@ -18,7 +18,10 @@ module ResponseGenerator
           {"player1_type": args[:match1_player1_type], "player2_type": args[:match1_player2_type]},
           {"player1_type": args[:match2_player1_type], "player2_type": args[:match2_player2_type]},
           {"player1_type": args[:match3_player1_type], "player2_type": args[:match3_player2_type]}
-          ]}
+          ],
+            "errors": {
+              "error_message": args[:error_message]
+            }}
       data.to_json
   end
 end
