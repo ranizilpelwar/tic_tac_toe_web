@@ -12,4 +12,13 @@ module ResponseGenerator
       }
       data.to_json
   end
+
+  def self.generate_matches(args)
+    data = { "matches": [
+          {"player1_type": args[:match1_player1_type], "player2_type": args[:match1_player2_type]},
+          {"player1_type": args[:match2_player1_type], "player2_type": args[:match2_player2_type]},
+          {"player1_type": args[:match3_player1_type], "player2_type": args[:match3_player2_type]}
+          ]}
+      data.to_json
+  end
 end

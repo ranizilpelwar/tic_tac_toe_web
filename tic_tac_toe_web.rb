@@ -16,13 +16,10 @@ end
 
 get '/match_types' do
   match_manager = TicTacToeRZ::MatchTypeManager.new
-  data = { "matches": [
-      {"player1_type": match_manager.player_type(1,1), "player2_type": match_manager.player_type(1,2)},
-      {"player1_type": match_manager.player_type(2,1), "player2_type": match_manager.player_type(2,2)},
-      {"player1_type": match_manager.player_type(3,1), "player2_type": match_manager.player_type(3,2)}
-      ]}
-  puts "response data = #{data}"
-  data.to_json
+  data = {:match1_player1_type => match_manager.player_type(1,1), :match1_player2_type => match_manager.player_type(1,2),
+      :match2_player1_type => match_manager.player_type(2,1), :match2_player2_type => match_manager.player_type(2,2),
+      :match3_player1_type => match_manager.player_type(3,1), :match3_player2_type => match_manager.player_type(3,2)}
+  ResponseGenerator.generate_matches(data)
 end
 
 put '/game_status' do
