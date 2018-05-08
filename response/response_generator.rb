@@ -37,7 +37,8 @@ module ResponseGenerator
          "last_move_for_player1": args[:last_move_for_player1],
          "last_move_for_player2": args[:last_move_for_player2]}, 
          "errors":{
-          "error_message": !args[:error_message].nil? ? args[:error_message] : ""
+          "error_message": !args[:error_message].nil? ? args[:error_message] : "",
+          "stack_trace": !args[:stack_trace].nil? ? args[:stack_trace] : ""
          }
        }
     data.to_json
