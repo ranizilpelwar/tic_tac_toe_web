@@ -12,7 +12,14 @@ put '/message_content' do
     language_adapter.default_language_tag!(data[:language_tag])
     type = data[:type]
     method = type.to_sym
-    data[:text] = TicTacToeRZ::MessageGenerator.send method
+    text = TicTacToeRZ::MessageGenerator.send method
+    if text.class == Array
+      options = ""
+      text.each do |option|
+        options = options + option
+      end
+      data[:text] = options
+    end
   rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     data[:error_message] = error_message
