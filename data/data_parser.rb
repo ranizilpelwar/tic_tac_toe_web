@@ -25,4 +25,11 @@ module DataParser
     game[:error_message] = ""
     game
   end
+
+  def self.parse_message(request_data)
+    message = {}
+    message[:language_tag] = parse(request_data, 'message','language_tag')
+    message[:type] = parse(request_data, 'message','type')
+    message
+  end
 end

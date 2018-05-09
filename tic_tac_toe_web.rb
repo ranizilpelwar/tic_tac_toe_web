@@ -4,6 +4,7 @@ require 'tic_tac_toe_rz'
 require 'json'
 require_relative 'data/data_parser.rb'
 require_relative 'response/response_generator.rb'
+require_relative 'routes/messages.rb'
 
 before do
 	headers 'Content-Type' => 'application/json'
@@ -208,7 +209,7 @@ put '/undo_move' do
       game[:last_move_for_player1] = player_movement_manager.player1_last_move
       game[:last_move_for_player2] = player_movement_manager.player2_last_move
       game[:board] = game_board.board
-    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       game[:stack_trace] = "#{ error.backtrace.join("\n") }"
       status 400

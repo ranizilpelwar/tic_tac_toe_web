@@ -43,4 +43,18 @@ module ResponseGenerator
        }
     data.to_json
   end
+
+  def self.generate_message(args)
+    data = { "message": {
+      "language_tag": args[:language_tag],
+      "type": args[:type],
+      "text": args[:text]
+      },
+      "errors": {
+        "error_message": !args[:error_message].nil? ? args[:error_message] : "",
+        "stack_trace": !args[:stack_trace].nil? ? args[:stack_trace] : ""
+      }
+    }
+    data.to_json
+  end
 end
