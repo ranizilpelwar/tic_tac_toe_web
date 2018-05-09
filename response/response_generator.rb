@@ -51,8 +51,7 @@ module ResponseGenerator
       "text": args[:text]
       },
       "errors": {
-        "error_message": !args[:error_message].nil? ? args[:error_message] : "",
-        "stack_trace": !args[:stack_trace].nil? ? args[:stack_trace] : ""
+        "error_message": !args[:error_message].nil? ? args[:error_message] : ""
       }
     }
     data.to_json

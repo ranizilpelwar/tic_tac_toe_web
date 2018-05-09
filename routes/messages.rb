@@ -12,14 +12,12 @@ put '/message_content' do
     language_adapter.default_language_tag!(data[:language_tag])
     type = data[:type]
     method = type.to_sym
-    text = TicTacToeRZ::MessageGenerator.send method
-  rescue TicTacToeRZ::InvalidValueError => error
+    data[:text] = TicTacToeRZ::MessageGenerator.send method
+  rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
-    data[:error_message] = error
+    data[:error_message] = error_message
     status 400
-  else
-    data[:text] = text
-    ResponseGenerator.generate_message(data)
   end
+  ResponseGenerator.generate_message(data)
 end
 
