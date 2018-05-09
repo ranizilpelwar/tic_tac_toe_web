@@ -10,7 +10,9 @@ put '/message_content' do
     data = DataParser.parse_message(@request_data)
     language_adapter = TicTacToeRZ::LanguageOptionsAdapter.new(TicTacToeRZ::MessageGenerator.directory)
     language_adapter.default_language_tag!(data[:language_tag])
-    text = TicTacToeRZ::MessageGenerator.welcome
+    type = data[:type]
+    method = type.to_sym
+    text = TicTacToeRZ::MessageGenerator.send method
   rescue TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     data[:error_message] = error
