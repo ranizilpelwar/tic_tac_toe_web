@@ -5,6 +5,7 @@ require 'json'
 require_relative 'data/data_parser.rb'
 require_relative 'response/response_generator.rb'
 require_relative 'routes/messages.rb'
+require_relative 'routes/matches.rb'
 
 before do
 	headers 'Content-Type' => 'application/json'
@@ -13,22 +14,6 @@ before do
     @request_data = JSON.parse request.body.read
     puts "request data: #{@request_data}"
   end
-end
-
-get '/match_types' do
-  error_message = ""
-  match_manager = TicTacToeRZ::MatchTypeManager.new
-  begin
-    data = {:match1_player1_type => match_manager.player_type(1,1), :match1_player2_type => match_manager.player_type(1,2),
-        :match2_player1_type => match_manager.player_type(2,1), :match2_player2_type => match_manager.player_type(2,2),
-        :match3_player1_type => match_manager.player_type(3,1), :match3_player2_type => match_manager.player_type(3,2),
-        :error_message => error_message}
-  rescue TicTacToeRZ::InvalidValueError => error
-    error_message = "#{ error.class.name }: #{ error.message }"
-    data[:error_message] = error
-    status 400
-  end
-  ResponseGenerator.generate_matches(data)
 end
 
 put '/game_status' do
@@ -134,7 +119,7 @@ put '/human_players_turn' do
       game_board.update_board(spot.to_i, current_player_symbol)
       game[:board] = game_board.board
     else
-      game[:error_message] = "This is not a valid move."
+      game[:error_message] = "TicTacToeRZ::GameRuleViolationError: invalid move."
       status 400
     end
   end
@@ -202,8 +187,6 @@ put '/undo_move' do
       
       # Perform the action
       player_movement_manager.undo_last_move(game_board, player_manager)
-      puts "player1_last_move = #{player_movement_manager.player1_last_move}"
-      puts "player2_last_move = #{player_movement_manager.player2_last_move}"
       
       # Get updated data
       game[:last_move_for_player1] = player_movement_manager.player1_last_move
