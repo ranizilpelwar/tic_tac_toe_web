@@ -13,17 +13,16 @@ put '/message_content' do
     type = data[:type]
     method = type.to_sym
     text = TicTacToeRZ::MessageGenerator.send method
-    if text.class == Array
-      options = ""
-      text.each do |option|
-        options = options + option
-      end
-      data[:text] = options
+    if text.class != Array
+      data[:text] = []
+      data[:text] << text
+    else
+      data[:text] = text
     end
   rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     data[:error_message] = error_message
-    data[:text] = ""
+    data[:text] = []
     status 400
   end
   ResponseGenerator.generate_message(data)
