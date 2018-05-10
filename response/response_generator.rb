@@ -56,4 +56,11 @@ module ResponseGenerator
     }
     data.to_json
   end
+
+  def self.generate_language_tag(args)
+    data = { 
+      "language_tag": args[:language_tag]
+    }
+    data.to_json
+  end
 end

@@ -8,6 +8,7 @@ require_relative 'routes/messages.rb'
 require_relative 'routes/matches.rb'
 require_relative 'routes/game_status.rb'
 require_relative 'routes/player_moves.rb'
+require_relative 'routes/languages.rb'
 require_relative 'helpers/object_creator.rb'
 
 before do
