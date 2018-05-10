@@ -8,6 +8,7 @@ require_relative 'routes/messages.rb'
 require_relative 'routes/matches.rb'
 require_relative 'routes/game_status.rb'
 require_relative 'routes/player_moves.rb'
+require_relative 'helpers/object_creator.rb'
 
 before do
 	headers 'Content-Type' => 'application/json'
@@ -40,12 +41,10 @@ post '/game' do
     status 400
   else 
     begin
-      match_manager = TicTacToeRZ::MatchTypeManager.new
-      player1 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,1), player1_symbol)
-      player2 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,2), player2_symbol)
-      player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
+      player_data = {:match_number => match_number, :player1_symbol => player1_symbol, :player2_symbol => player2_symbol}
+      player_manager = ObjectCreator.player_manager(player_data)
       game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
-      player_movement_manager = TicTacToeRZ::PlayerMovementManager.new(match_manager.get_match_type(match_number))
+      player_movement_manager = ObjectCreator.player_movement_manager(player_data)
       current_player_symbol = player_manager.current_player.symbol
       board = game_board.board
       record_moves = player_movement_manager.moves_recordable?(match_number)
