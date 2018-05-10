@@ -81,7 +81,6 @@ put '/undo_move' do
     status 400
   else
     begin
-      # Setting up the data
       match_manager = TicTacToeRZ::MatchTypeManager.new
       match_number = game[:match_number]
       player_manager = ObjectCreator.player_manager(game)
@@ -92,10 +91,8 @@ put '/undo_move' do
       player_movement_manager.update_last_move_for_player(1, game[:last_move_for_player1])
       player_movement_manager.update_last_move_for_player(2, game[:last_move_for_player2])
       
-      # Perform the action
       player_movement_manager.undo_last_move(game_board, player_manager)
       
-      # Get updated data
       game[:last_move_for_player1] = player_movement_manager.player1_last_move
       game[:last_move_for_player2] = player_movement_manager.player2_last_move
       game[:board] = game_board.board
