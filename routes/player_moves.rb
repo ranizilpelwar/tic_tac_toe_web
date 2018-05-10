@@ -4,6 +4,7 @@ require 'tic_tac_toe_rz'
 require 'json'
 require_relative '../data/data_parser.rb'
 require_relative '../response/response_generator.rb'
+require_relative '../helpers/object_creator.rb'
 
 put '/human_players_turn' do
   game = {}
@@ -49,10 +50,7 @@ put '/computer_players_turn' do
     best_max_move = -20000
     best_min_move = 20000
     begin
-      match_manager = TicTacToeRZ::MatchTypeManager.new
-      player1 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],1), game[:player1_symbol])
-      player2 = TicTacToeRZ::Player.new(match_manager.player_type(game[:match_number],2), game[:player2_symbol])
-      player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
+      player_manager = ObjectCreator.player_manager(game)
       game_board = TicTacToeRZ::GameBoard.new(game[:board])
       computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
       current_player_symbol = game[:current_player_symbol]
@@ -86,13 +84,11 @@ put '/undo_move' do
       # Setting up the data
       match_manager = TicTacToeRZ::MatchTypeManager.new
       match_number = game[:match_number]
-      player1 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,1), game[:player1_symbol])
-      player2 = TicTacToeRZ::Player.new(match_manager.player_type(match_number,2), game[:player2_symbol])
-      player_manager = TicTacToeRZ::PlayerManager.new(player1, player2)
+      player_manager = ObjectCreator.player_manager(game)
       current_player_symbol = game[:current_player_symbol]
-      player_manager.update_current_player if current_player_symbol == player2.symbol
+      player_manager.update_current_player if current_player_symbol == game[:player2_symbol]
       game_board = TicTacToeRZ::GameBoard.new(game[:board])
-      player_movement_manager = TicTacToeRZ::PlayerMovementManager.new(match_manager.get_match_type(match_number))
+      player_movement_manager = ObjectCreator.player_movement_manager(game)
       player_movement_manager.update_last_move_for_player(1, game[:last_move_for_player1])
       player_movement_manager.update_last_move_for_player(2, game[:last_move_for_player2])
       
