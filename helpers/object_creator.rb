@@ -17,4 +17,8 @@ module ObjectCreator
     match_number = args[:match_number]
     TicTacToeRZ::PlayerMovementManager.new(match_manager.get_match_type(match_number))
   end
+
+  def self.language_adapter
+    TicTacToeRZ::LanguageOptionsAdapter.new(TicTacToeRZ::MessageGenerator.directory)
+  end
 end

@@ -8,7 +8,7 @@ require_relative '../response/response_generator.rb'
 put '/message_content' do
   begin
     data = DataParser.parse_message(@request_data)
-    language_adapter = TicTacToeRZ::LanguageOptionsAdapter.new(TicTacToeRZ::MessageGenerator.directory)
+    language_adapter = ObjectCreator.language_adapter
     language_adapter.default_language_tag!(data[:language_tag])
     type = data[:type]
     method = type.to_sym

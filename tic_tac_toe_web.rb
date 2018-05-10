@@ -31,8 +31,8 @@ post '/game' do
   last_move_for_player2 = -1
   error_message = ""
   begin
-    #language_adapter = TicTacToeRZ::LanguageOptionsAdapter.new(directory)
-    language_tag = "en"
+    language_adapter = ObjectCreator.language_adapter
+    language_tag = language_adapter.default_language_tag
     match_number = DataParser.parse(@request_data, nil, 'match_number').to_i
     player1_symbol = DataParser.parse(@request_data, nil, 'first_player_symbol')
     player2_symbol = DataParser.parse(@request_data, nil, 'second_player_symbol')
