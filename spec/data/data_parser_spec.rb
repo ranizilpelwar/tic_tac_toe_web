@@ -36,5 +36,16 @@ RSpec.describe "A data_parser" do
       data = sample.to_json
       expect{output = DataParser.parse(data, "category", "fake_property")}.to raise_error(TicTacToeRZ::NilReferenceError)
     end
+
+    it "raises a NilReferenceError if the property is not found within the given category" do
+      sample = { "input": {
+                    "match_number": 2,
+                    "first_player_symbol": "X",
+                    "second_player_symbol": "Y"
+                  }
+      }
+      data = sample.to_json
+      expect{output = DataParser.parse(data, "input", "fake_property")}.to raise_error(TicTacToeRZ::NilReferenceError)
+    end
   end
 end
