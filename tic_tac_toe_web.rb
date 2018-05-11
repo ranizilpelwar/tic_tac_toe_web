@@ -9,7 +9,7 @@ require_relative 'routes/matches.rb'
 require_relative 'routes/game_statuses.rb'
 require_relative 'routes/player_moves.rb'
 require_relative 'routes/languages.rb'
-require_relative 'routes/game.rb'
+require_relative 'routes/games.rb'
 require_relative 'helpers/object_creator.rb'
 
 before do
