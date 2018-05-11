@@ -33,7 +33,9 @@ module Models
     end
 
     def construct
-      player_data = {:match_number => @match_number, :player1_symbol => @player1_symbol, :player2_symbol => @player2_symbol}
+      player_data = { :match_number => @match_number, 
+                      :player1_symbol => @player1_symbol, 
+                      :player2_symbol => @player2_symbol}
       player_manager = ObjectCreator.player_manager(player_data)
       game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
       player_movement_manager = ObjectCreator.player_movement_manager(player_data)
@@ -44,15 +46,15 @@ module Models
 
     def content
       data = {:language_tag => @language_tag, 
-                :match_number => @match_number, 
-                :player1_symbol => @player1_symbol, 
-                :player2_symbol => @player2_symbol,
-                :current_player_symbol => @current_player_symbol, 
-                :board => @board, 
-                :record_moves => @record_moves, 
-                :last_move_for_player1 => @last_move_for_player1, 
-                :last_move_for_player2 => @last_move_for_player2,
-                :error_message => @error_message}
+              :match_number => @match_number, 
+              :player1_symbol => @player1_symbol, 
+              :player2_symbol => @player2_symbol,
+              :current_player_symbol => @current_player_symbol, 
+              :board => @board, 
+              :record_moves => @record_moves, 
+              :last_move_for_player1 => @last_move_for_player1, 
+              :last_move_for_player2 => @last_move_for_player2,
+              :error_message => @error_message}
     end
   end
 end
