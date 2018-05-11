@@ -1,10 +1,4 @@
-require 'sinatra'
-require 'sinatra/reloader'
 require 'tic_tac_toe_rz'
-require 'json'
-require_relative '../data/data_parser.rb'
-require_relative '../response/response_generator.rb'
-require_relative '../helpers/object_creator.rb'
 
 module Models
   class MatchTypes
