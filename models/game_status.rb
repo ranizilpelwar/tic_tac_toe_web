@@ -33,10 +33,11 @@ module Models
     end
 
     def content
-      data = {:error_message => @error_message,
+      data = {
               :tie_game => @tie_game, 
               :game_over => @game_over, 
-              :winner => @winner
+              :winner => @winner,
+              :error_message => @error_message
              }
     end
   end
