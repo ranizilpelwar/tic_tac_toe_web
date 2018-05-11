@@ -10,7 +10,7 @@ post '/game' do
   match_number = ""
   player1_symbol = ""
   player2_symbol = ""
-  current_player_symbol = "" 
+  current_player_symbol = ""
   board = ""
   record_moves = false
   last_move_for_player1 = -1
