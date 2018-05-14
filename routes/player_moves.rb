@@ -7,6 +7,7 @@ require_relative '../response/response_generator.rb'
 require_relative '../helpers/object_creator.rb'
 require_relative '../models/game.rb'
 require_relative '../models/human_player.rb'
+require_relative '../models/computer_player.rb'
 
 put '/human_players_turn' do
   game = {}
@@ -36,24 +37,9 @@ put '/computer_players_turn' do
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
-    depth = 5 # The most # of actions that can be taken before a tie or win can occur in the game.
-    best_max_move = -20000
-    best_min_move = 20000
     begin
-      player_manager = ObjectCreator.player_manager(game)
-      game_board = TicTacToeRZ::GameBoard.new(game[:board])
-      computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
-      current_player_symbol = game[:current_player_symbol]
-      spot = computer_action.get_best_move(game_board.board, current_player_symbol, depth, best_max_move, best_min_move).index
-      if game[:record_moves]
-        if current_player_symbol == game[:player1_symbol]
-          game[:last_move_for_player1] = spot
-        elsif current_player_symbol == game[:player2_symbol]
-          game[:last_move_for_player2] = spot
-        end
-      end
-      game_board.update_board(spot.to_i, current_player_symbol)
-      game[:board] = game_board.board
+      player = Models::ComputerPlayer.new(game)
+      game = player.play_turn
     rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
