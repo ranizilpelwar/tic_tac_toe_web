@@ -76,23 +76,31 @@ RSpec.describe "A GameRulesValidator" do
   end
 
   context "method called legal_move?" do
-      shared_examples "legal move check" do |player1_symbol, player2_symbol, current_player_symbol, current_player, board, remaining_spaces, result|
-        it "returns #{result} when current player is #{current_player} and remaining_spaces is #{remaining_spaces}" do
-          game = {:board => board, :player1_symbol => player1_symbol, :player2_symbol => player2_symbol, :current_player_symbol => player1_symbol}
+      shared_examples "legal move" do |player1_symbol, player2_symbol, current_player_symbol, current_player, board, remaining_spaces, result|
+        it "returns #{result} when current player is player #{current_player} and remaining_spaces is #{remaining_spaces}" do
+          game = {:board => board, :player1_symbol => player1_symbol, :player2_symbol => player2_symbol, :current_player_symbol => current_player_symbol}
           expect(GameRulesValidator.legal_move?(game)).to be result
         end
       end
 
-      include_examples "legal move check", "X", "Y", "X", "player1", ["1", "2", "3", "4", "5", "6", "7", "8", "9"], 9, true
-      include_examples "legal move check", "X", "Y", "X", "player1", ["1", "X", "Y", "4", "5", "6", "7", "8", "9"], 7, true
-      include_examples "legal move check", "X", "Y", "X", "player1", ["1", "X", "Y", "X", "Y", "6", "7", "8", "9"], 5, true
-      include_examples "legal move check", "X", "Y", "X", "player1", ["1", "X", "Y", "X", "Y", "X", "Y", "8", "9"], 3, true
-      include_examples "legal move check", "X", "Y", "X", "player1", ["1", "X", "Y", "X", "Y", "X", "Y", "X", "Y"], 1, true
+      include_examples "legal move", "X", "Y", "X", "1", ["1", "2", "3", "4", "5", "6", "7", "8", "9"], 9, true
+      include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "4", "5", "6", "7", "8", "9"], 7, true
+      include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "X", "Y", "6", "7", "8", "9"], 5, true
+      include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "X", "Y", "X", "Y", "8", "9"], 3, true
+      include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "X", "Y", "X", "Y", "X", "Y"], 1, true
       
-      include_examples "legal move check", "X", "Y", "X", "player1", ["X", "2", "3", "4", "5", "6", "7", "8", "9"], 8, false
-      include_examples "legal move check", "X", "Y", "X", "player1", ["X", "X", "Y", "4", "5", "6", "7", "8", "9"], 6, false
-      include_examples "legal move check", "X", "Y", "X", "player1", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 4, false
-      include_examples "legal move check", "X", "Y", "X", "player1", ["X", "X", "Y", "X", "5", "6", "Y", "Y", "X"], 2, false
-      include_examples "legal move check", "X", "Y", "X", "player1", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 0, false
+      include_examples "legal move", "X", "Y", "X", "2", ["X", "2", "3", "4", "5", "6", "7", "8", "9"], 8, false
+      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "8", "9"], 6, false
+      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 4, false
+      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "X", "5", "6", "Y", "Y", "X"], 2, false
+      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 0, false
+
+      include_examples "legal move", "X", "Y", "Y", "2", ["1", "2", "3", "4", "5", "6", "7", "8", "9"], 9, false
+      include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "4", "5", "6", "7", "8", "9"], 7, false
+      include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "X", "Y", "6", "7", "8", "9"], 5, false
+      include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "X", "Y", "X", "Y", "8", "9"], 3, false
+      include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "X", "Y", "X", "Y", "X", "Y"], 1, false
+
+      
   end
 end
