@@ -5,6 +5,8 @@ require 'json'
 require_relative '../data/data_parser.rb'
 require_relative '../response/response_generator.rb'
 require_relative '../helpers/object_creator.rb'
+require_relative '../models/game.rb'
+require_relative '../models/human_player.rb'
 
 put '/human_players_turn' do
   game = {}
@@ -15,23 +17,11 @@ put '/human_players_turn' do
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
-    game_board = TicTacToeRZ::GameBoard.new(game[:board])
-    return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
-    valid_move = return_result.is_valid_move
-    spot = return_result.index_of_board
-    current_player_symbol = game[:current_player_symbol]
-    if valid_move
-      if game[:record_moves]
-          if current_player_symbol == game[:player1_symbol]
-            game[:last_move_for_player1] = spot
-          elsif current_player_symbol == game[:player2_symbol]
-            game[:last_move_for_player2] = spot
-          end
-      end
-      game_board.update_board(spot.to_i, current_player_symbol)
-      game[:board] = game_board.board
-    else
-      game[:error_message] = "TicTacToeRZ::GameRuleViolationError: invalid move."
+    begin
+      player = Models::HumanPlayer.new(game)
+      game = player.play_turn(tile_on_board)
+    rescue TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
+      game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
   end

@@ -17,5 +17,6 @@ before do
   if request.body.size > 0
     request.body.rewind
     @request_data = JSON.parse request.body.read
+    puts "request_data = #{@request_data}"
   end
 end
