@@ -58,8 +58,10 @@ module ResponseGenerator
   end
 
   def self.generate_language_tag(args)
-    data = { 
-      "language_tag": args[:language_tag]
+    data = { "language": {
+      "language_tag": args[:language_tag]},
+      "errors": {
+        "error_message": args[:error_message]}
     }
     data.to_json
   end
