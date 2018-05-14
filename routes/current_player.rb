@@ -6,7 +6,7 @@ require_relative '../data/data_parser.rb'
 require_relative '../response/response_generator.rb'
 require_relative '../models/players.rb'
 
-put '/next_player' do
+put '/current_player' do
   game = {}
   begin
     game = DataParser.parse_game(@request_data)
