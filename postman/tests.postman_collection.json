@@ -1,0 +1,2055 @@
+{
+	"info": {
+		"_postman_id": "c0d8b47e-58d7-495a-92b2-529308cf67cf",
+		"name": "tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/match_types : 3 matches returned",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b1e7878-bf33-4cc5-801c-a5a3c57223d9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"First match has player 1 type set to Human\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[0].player1_type).to.eql(\"Human\");",
+							"});",
+							"",
+							"pm.test(\"First match has player 2 type set to Human\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[0].player2_type).to.eql(\"Human\");",
+							"});",
+							"",
+							"pm.test(\"Second match has player 1 type set to Human\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[1].player1_type).to.eql(\"Human\");",
+							"});",
+							"",
+							"pm.test(\"Second match has player 2 type set to Computer\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[1].player2_type).to.eql(\"Computer\");",
+							"});",
+							"",
+							"pm.test(\"Third match has player 1 type set to Computer\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[2].player1_type).to.eql(\"Computer\");",
+							"});",
+							"",
+							"pm.test(\"Third match has player 2 type set to Computer\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.matches[2].player2_type).to.eql(\"Computer\");",
+							"});",
+							"",
+							"expected_result_for_matches = '{\"matches\":[{\"player1_type\":\"Human\",\"player2_type\":\"Human\"},{\"player1_type\":\"Human\",\"player2_type\":\"Computer\"},{\"player1_type\":\"Computer\",\"player2_type\":\"Computer\"}],\"errors\":{\"error_message\":\"\"}}'",
+							"",
+							"pm.test(\"Expected match content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_matches);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/match_types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"match_types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Valid move updates board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c576bfb0-7d90-4586-9260-181274fb322e",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"A valid move updates the board\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "A valid move updates the board"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : valid move updates player1's last move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92dd5e41-8aac-4a68-8142-405a90c83b02",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":4,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"A valid move with record_moves true updates player1's last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "A valid move with record_moves true updates player1's last move"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Valid move updates player2's last move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85d6b2dd-4e95-409c-a1bd-97ec352eb8f0",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"A valid move with record_moves true updates player2's last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "A valid move with record_moves true updates player2's last move"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Invalid move doesn't update board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e926ce19-5707-4f5d-97b1-2193d498b4e5",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns the same game\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"10\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "Invalid move"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : invalid move doesn't update last move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "405fc4ca-e77b-468b-8d13-eec089072374",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"A valid move with record_moves true updates player2's last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"15\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "An invalid move with record_moves true doesn't update player2's last move"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Move on occupied tile doesn't update board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26cba9b4-8179-48dc-b3b3-6fc38c6b3625",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"A move to an occupied tile returns the same game\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"X\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "Invalid move on an occupied tile"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Missing current_player_symbol includes error message in return result",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64cd8fb1-4750-4692-83a9-f1d590fc05d6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_error_for_missing_symbol = '{\"error_message\":\"TicTacToeRZ::NilReferenceError: category: game, property: current_player_symbol\",\"stack_trace\":\"\"}'",
+							"",
+							"pm.test(\"Error message contains the missing property\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error_for_missing_symbol);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"X\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "Missing current_player_symbol includes error message in return result"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Invalid move as a letter doesn't update board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99e1df39-7194-4e36-8832-56abf9575f48",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns the same game\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"L\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "Invalid move is a letter"
+			},
+			"response": []
+		},
+		{
+			"name": "/human_players_turn : Returns error for a consecutive move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18a705b9-3a34-4368-832c-448abd5a6fc2",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns the same game\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/human_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"human_players_turn"
+					]
+				},
+				"description": "The same human player cannot play the turn two times in a row by playing on a board that has Even # of remaining spaces for player 1."
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Request returns game with defaults",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dd923d4-431f-450a-bdfa-bd67f6ddd9e3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"tests[\"Content-Type is set to application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"expected_result_for_match2 = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_match2);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Can record moves for match 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7719174a-22f3-4122-8dd5-46767d9f77b4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"tests[\"Content-Type is set to application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"expected_result_for_match1 = '{\"game\":{\"language_tag\":\"en\",\"match_number\":1,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Record moves is true when match 1 is selected\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_match1);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 1,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Record moves is true when match type is 1"
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Can't record moves for match 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d78f51f7-9953-4324-a0c0-6b5bf20f19dc",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"tests[\"Content-Type is set to application/json\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"expected_result_for_match3 = '{\"game\":{\"language_tag\":\"en\",\"match_number\":3,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Record moves is false when match 3 is selected\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_match3);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 3,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Record moves is false when match type is 3"
+			},
+			"response": []
+		},
+		{
+			"name": "/game: Returns error message when match_number isn't provided",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "789a5701-df53-4162-a2f5-f7ad069f672e",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_game_with_no_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":\"\",\"player1_symbol\":\"\",\"player2_symbol\":\"\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::NilReferenceError:'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_game_with_no_match);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Returns error message when match_number isn't provided in request body"
+			},
+			"response": []
+		},
+		{
+			"name": "/game: Returns error message when bad match_number is provided",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d69239fd-46b9-4182-9900-e4e1fbfac361",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_game_with_bad_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":7,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: match_number\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_game_with_bad_match);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\":\"7\",\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Returns error message when bad match_number is provided"
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Returns error when I pick the same player symbol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5aaa0688-50d4-474d-a543-43ac8e5c2bcb",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_identical_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: duplicate symbols\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_identical_player);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"X\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Returns error when I pick the same player symbol"
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Returns error when I pick a number as the player symbol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83e1e04b-2f80-4dca-ab4c-2d73b5914447",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"7\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_numeric_player);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \"7\",\n    \"second_player_symbol\": \"X\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Returns error when I pick a number as the player symbol"
+			},
+			"response": []
+		},
+		{
+			"name": "/game : Returns error when I pick a space as the player symbol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "676e2fa0-ecf5-4df1-8e46-1d45b892349b",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\" \",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Expected game content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_numeric_player);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \" \",\n    \"second_player_symbol\": \"X\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game"
+					]
+				},
+				"description": "Returns error when I pick a space as the player symbol"
+			},
+			"response": []
+		},
+		{
+			"name": "/game_status : tie game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "657cb8d2-536e-4d02-bd0c-efccf261a653",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game_over\":true,\"tie_game\":true,\"winner\":\"\"}'",
+							"",
+							"pm.test(\"A tie game is properly identified\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"X\", \"X\", \"O\", \"O\", \"O\", \"X\", \"X\", \"O\", \"X\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game_status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game_status"
+					]
+				},
+				"description": "A tie game is when no one won and there are no unoccupied tiles on the board. Tie_game + game_over should both be true."
+			},
+			"response": []
+		},
+		{
+			"name": "/game_status : Player2 won",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03d706b5-d599-4185-9c36-48864648f352",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game_over\":true,\"tie_game\":false,\"winner\":\"X\"}'",
+							"",
+							"pm.test(\"Player 1 is properly identified as a winner\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"X\", \"X\", \"X\", \"Y\", \"Y\", \"X\", \"X\", \"Y\", \"Y\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game_status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game_status"
+					]
+				},
+				"description": "Properly identifies player 2 as the winner"
+			},
+			"response": []
+		},
+		{
+			"name": "/game_status : Player1 won",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c076e78a-47b9-4075-93f3-e8b94b625627",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game_over\":true,\"tie_game\":false,\"winner\":\"Y\"}'",
+							"",
+							"pm.test(\"Player 2 is properly identified as a winner\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"X\", \"Y\", \"Y\", \"Y\", \"X\", \"X\", \"Y\", \"Y\", \"Y\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game_status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game_status"
+					]
+				},
+				"description": "Properly identifies player 1 as the winner"
+			},
+			"response": []
+		},
+		{
+			"name": "/game_status : No game_over or tie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56b6e03a-489b-4860-bbab-fbcdbd01ef3a",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"}'",
+							"",
+							"pm.test(\"Player 2 is properly identified as a winner\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"X\", \"Y\", \"Y\", \"Y\", \"X\", \"X\", \"Y\", \"8\", \"Y\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game_status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game_status"
+					]
+				},
+				"description": "Properly identifies that game is not over or tied"
+			},
+			"response": []
+		},
+		{
+			"name": "/game_status : Bad syntax - missing player2_symbol",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df831ac3-e667-4573-adad-9b8845a34df3",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"statuses\":{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"},\"errors\":{\"message\":\"TicTacToeRZ::NilReferenceError';",
+							"",
+							"pm.test(\"When player2_symbol property is missing from request, default response is returned with no winner identified\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"X\", \"Y\", \"Y\", \"Y\", \"X\", \"X\", \"Y\", \"Y\", \"Y\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/game_status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"game_status"
+					]
+				},
+				"description": "missing player2_symbol"
+			},
+			"response": []
+		},
+		{
+			"name": "/computer_players_turn : Valid move updates board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19238965-a7a3-4c60-99b0-4d83d0eca340",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"A valid move updates the board\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/computer_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"computer_players_turn"
+					]
+				},
+				"description": "A valid move updates the board"
+			},
+			"response": []
+		},
+		{
+			"name": "/computer_players_turn : Valid move records last move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95fb8fc8-078c-42c2-8d46-b53e85e16458",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"A valid move records the last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/computer_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"computer_players_turn"
+					]
+				},
+				"description": "A valid move updates the board and records last move when record_moves is true"
+			},
+			"response": []
+		},
+		{
+			"name": "/computer_players_turn : A full board returns an error when there are no more moves left to play",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2f6c6b2-d210-484b-87ad-157dd042f6a6",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"X\",\"Y\",\"X\",\"X\",\"Y\",\"Y\",\"X\",\"X\",\"Y\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"A full board returns an error when there are no more moves left to play\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"X\", \"Y\", \"X\", \"X\", \"Y\", \"Y\", \"X\", \"X\", \"Y\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/computer_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"computer_players_turn"
+					]
+				},
+				"description": "An invalid move on an occupied tile returns an error message"
+			},
+			"response": []
+		},
+		{
+			"name": "/computer_players_turn : Returns error for a consecutive move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18a705b9-3a34-4368-832c-448abd5a6fc2",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns the same game\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/computer_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"computer_players_turn"
+					]
+				},
+				"description": "The same computer player cannot play the turn two times in a row by playing on a board that has Even # of remaining spaces for player 1."
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Human vs Human - updates current players last move (player1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a58a6969-45d2-4d8b-b0c4-a252a64f664d",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":1,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"Y\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":6},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"In a Human vs Human match, it updates the current player's last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 1,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"6\", \"Y\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":6\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Human vs Human match, the undo_move action will revert only the current player's last move and send an updated board. "
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Human vs Human - updates current players last move (player2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "897650aa-05ec-4334-ae0a-c5621b35193a",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":1,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":2,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"In a Human vs Human match, it updates the current player's last move\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 1,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"6\", \"Y\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":6\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Human vs Human match, the undo_move action will revert only the current player's last move and send an updated board. "
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Human vs Computer - updates both players moves",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f3f083c-bd52-4623-ae4b-e6da9a593eac",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"In a Human vs Computer match, it reverts both players moves\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"6\", \"Y\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":6\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Human vs Computer match, the undo_move action will revert both players moves."
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Human vs Computer - returns error when there are no moves to undo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7579dc43-76be-4a95-97c3-a9636243a34c",
+						"type": "text/javascript",
+						"exec": [
+							"expected_partial_result_when_there_are_no_moves_to_undo = 'error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"return an error message when there are no moves to undo\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_partial_result_when_there_are_no_moves_to_undo);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Human vs Computer match, the undo_move action will return an error message when there are no moves to undo."
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Computer vs Computer - returns error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "624e1984-94d3-49ca-8e1d-ad787f7d1b0a",
+						"type": "text/javascript",
+						"exec": [
+							"expected_error_type = 'error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"return an error message when there are no moves to undo\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error_type);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 3,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"X\", \"Y\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":3\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Computer vs Computer match, the undo_move action will return an error message. Undo move is allowed when there is a Human player."
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: welcome in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d93397e3-2cf2-4d2c-bcd9-97e20286c504",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"welcome\",\"text\":[\"Welcome to Tic Tac Toe! Let\\'s play a game!\"]},\"errors\":{\"error_message\":\"\"'",
+							"",
+							"pm.test(\"Will respond with welcome text in English\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"welcome\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return welcome text in English"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: welcome in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09d81189-25d5-41e1-ae46-3f10c41d853b",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"welcome\",\"text\":[\"¡Bienvenido a Tic Tac Toe! ¡Juguemos!\"]},\"errors\":{\"error_message\":\"\"'",
+							"",
+							"pm.test(\"Will respond with welcome text in Spanish\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"welcome\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return welcome text in Spanish"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: player_setup_prompt in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c1add21-4486-4692-b9ac-04129709ca7a",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"player_setup_prompt\",\"text\":[\"¿Qué símbolo quieres usar para cada jugador?\"]},\"errors\":{\"error_message\":\"\"'",
+							"",
+							"pm.test(\"Will respond with player_setup_prompt text in Spanish\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"player_setup_prompt\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return player_setup_prompt text in Spanish"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: Returns error when type is not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e89024e-dd56-44d0-b201-aaee47f881d4",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"fake_type\",\"text\":[]},\"errors\":{\"error_message\":\"NoMethodError:'",
+							"",
+							"pm.test(\"Will respond with error message when type is not found\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"fake_type\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return error message when the provided type is not found in the application text yaml file"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: Returns error when language tag is not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "929cf558-b1e0-4d72-82f0-198ed66e9a60",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"ex\",\"type\":\"welcome\",\"text\":[]},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
+							"",
+							"pm.test(\"Will respond with error message when language tag is not found\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"ex\",\n           \"type\": \"welcome\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return error message when the provided language tag is not found in the available list of tags in the gem"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: language options in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "878d3f91-bb80-403b-91ff-dba6f8619437",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"language_options\",\"text\":[\"1. English\\\\n\",\"2. Spanish\\\\n\"]},\"errors\":{\"error_message\":\"\"'",
+							"",
+							"pm.test(\"Will respond with language options text in English\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"language_options\"\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return language options text in English"
+			},
+			"response": []
+		},
+		{
+			"name": "/default_language_tag : default tag returned",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "808442a9-6c90-4a89-a261-11dd31b72c24",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"language_tag\":'",
+							"",
+							"pm.test(\"Expected content is returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"match_number\": 2,\n    \"first_player_symbol\": \"X\",\n    \"second_player_symbol\": \"Y\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/default_language_tag",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"default_language_tag"
+					]
+				},
+				"description": "default tag returned"
+			},
+			"response": []
+		},
+		{
+			"name": "/current_player : updates to player1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7e88f01-b92a-4a15-8e11-9f970ab143ea",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"Y\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":2,\"last_move_for_player2\":5},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Updates to player 2\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"Y\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":5\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/current_player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"current_player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/current_player : updates to player2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f8a73a3-3836-447c-b375-5539c4ac61c7",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"Y\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":2,\"last_move_for_player2\":5},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"Updates to player 2\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"Y\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":5\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/current_player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"current_player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/current_player : returns error when current player is not one of the players",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a41e0813-b09a-4d26-a57a-2716ed714008",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"C\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"Y\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":2,\"last_move_for_player2\":5},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
+							"",
+							"pm.test(\"Raises error when current player doesn't match symbols for neither player 1 nor player 2\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result);",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"C\",\n           \"board\": [\"1\", \"2\", \"X\", \"4\", \"5\", \"Y\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":2,\n           \"last_move_for_player2\":5\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/current_player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"current_player"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
