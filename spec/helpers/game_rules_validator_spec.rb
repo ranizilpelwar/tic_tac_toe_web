@@ -89,11 +89,11 @@ RSpec.describe "A GameRulesValidator" do
       include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "X", "Y", "X", "Y", "8", "9"], 3, true
       include_examples "legal move", "X", "Y", "X", "1", ["1", "X", "Y", "X", "Y", "X", "Y", "X", "Y"], 1, true
       
-      include_examples "legal move", "X", "Y", "X", "2", ["X", "2", "3", "4", "5", "6", "7", "8", "9"], 8, false
-      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "8", "9"], 6, false
-      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 4, false
-      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "X", "5", "6", "Y", "Y", "X"], 2, false
-      include_examples "legal move", "X", "Y", "X", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 0, false
+      include_examples "legal move", "X", "Y", "Y", "2", ["X", "2", "3", "4", "5", "6", "7", "8", "9"], 8, true
+      include_examples "legal move", "X", "Y", "Y", "2", ["X", "X", "Y", "4", "5", "6", "7", "8", "9"], 6, true
+      include_examples "legal move", "X", "Y", "Y", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 4, true
+      include_examples "legal move", "X", "Y", "Y", "2", ["X", "X", "Y", "X", "5", "6", "Y", "Y", "X"], 2, true
+      include_examples "legal move", "X", "Y", "Y", "2", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 0, true
 
       include_examples "legal move", "X", "Y", "Y", "2", ["1", "2", "3", "4", "5", "6", "7", "8", "9"], 9, false
       include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "4", "5", "6", "7", "8", "9"], 7, false
@@ -101,6 +101,10 @@ RSpec.describe "A GameRulesValidator" do
       include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "X", "Y", "X", "Y", "8", "9"], 3, false
       include_examples "legal move", "X", "Y", "Y", "2", ["1", "X", "Y", "X", "Y", "X", "Y", "X", "Y"], 1, false
 
-      
+      include_examples "legal move", "X", "Y", "X", "1", ["X", "2", "3", "4", "5", "6", "7", "8", "9"], 8, false
+      include_examples "legal move", "X", "Y", "X", "1", ["X", "X", "Y", "4", "5", "6", "7", "8", "9"], 6, false
+      include_examples "legal move", "X", "Y", "X", "1", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 4, false
+      include_examples "legal move", "X", "Y", "X", "1", ["X", "X", "Y", "X", "5", "6", "Y", "Y", "X"], 2, false
+      include_examples "legal move", "X", "Y", "X", "1", ["X", "X", "Y", "4", "5", "6", "7", "Y", "X"], 0, false
   end
 end
