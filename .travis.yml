@@ -5,3 +5,15 @@ matrix:
         - 2.4.1
       script:
         - bundle exec rspec spec/
+
+    - language: node_js
+      node_js: 
+        - 8.2.1
+      install:
+        - npm install newman
+      before_script:
+        - node --version
+        - npm --version
+        - node_modules/.bin/newman --version
+      script:
+        - node_modules/.bin/newman run postman/tests.postman_collection.json
