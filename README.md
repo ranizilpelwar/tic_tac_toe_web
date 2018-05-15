@@ -5,4 +5,5 @@ To run tests, execute the following command:
 Using rspec: "rspec"
 
 ####Master branch build status:
-![](https://travis-ci.org/ranizilpelwar/tic_tac_toe_web.svg?branch=master)
+#![](https://travis-ci.org/ranizilpelwar/tic_tac_toe_web.svg?branch=master)
+https://travis-ci.com/ranizilpelwar/tic_tac_toe_web.svg?branch=master
