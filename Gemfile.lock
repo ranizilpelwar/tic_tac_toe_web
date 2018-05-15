@@ -22,6 +22,7 @@ PLATFORMS
 
 DEPENDENCIES
   rspec
+  rspec-core
   tic_tac_toe_rz
 
 BUNDLED WITH
