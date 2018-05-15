@@ -41,7 +41,7 @@ put '/computer_players_turn' do
     begin
       player = Models::ComputerPlayer.new(game)
       game = player.play_turn
-    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
