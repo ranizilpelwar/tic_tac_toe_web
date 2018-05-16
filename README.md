@@ -3,7 +3,7 @@ Create a Sinatra web server API, with responses in JSON.
 
 To run tests, execute the following command:
 Using rspec: "rspec"
-Using bundle: bundle exec rspec spec/
+Using bundle: "bundle exec rspec spec/"
 
 
 
