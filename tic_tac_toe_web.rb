@@ -14,10 +14,19 @@ require_relative 'routes/current_player.rb'
 require_relative 'helpers/object_creator.rb'
 
 before do
-	headers 'Content-Type' => 'application/json'
+	headers \
+  'Content-Type' => 'application/json',
+  'Access-Control-Allow-Origin' => '*'
   if request.body.size > 0
     request.body.rewind
     @request_data = JSON.parse request.body.read
     puts "request_data = #{@request_data}"
   end
+end
+
+options '*' do
+  response.headers["Allow"] = "GET,PUT,POST,OPTIONS"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+  status 200
 end
