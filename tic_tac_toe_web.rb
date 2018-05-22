@@ -27,6 +27,6 @@ end
 options '*' do
   response.headers["Allow"] = "GET,PUT,POST,OPTIONS"
   response.headers["Access-Control-Allow-Origin"] = "*"
-  response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+  response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, Content-Type, Cache-Control, Accept"
   status 200
 end
