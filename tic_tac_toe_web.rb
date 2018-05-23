@@ -25,7 +25,7 @@ before do
 end
 
 options '*' do
-  response.headers["Allow"] = "GET,PUT,POST,OPTIONS"
+  response.headers["Access-Control-Allow-Methods"] = "GET,PUT,POST,OPTIONS"
   response.headers["Access-Control-Allow-Origin"] = "*"
   response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, Content-Type, Cache-Control, Accept"
   status 200
