@@ -12,18 +12,26 @@ module Models
       @type = ""
       @text = []
       @error_message = ""
+      @parameters = []
     end
 
     def parse(request_data)
       @language_tag = DataParser.parse(request_data, 'message','language_tag')
       @type = DataParser.parse(request_data, 'message','type')
+      @parameters = DataParser.parse(request_data, 'message','parameters')
     end
 
     def construct
       language_adapter = ObjectCreator.language_adapter
       language_adapter.default_language_tag!(@language_tag)
-      method = @type.to_sym
-      message_content = TicTacToeRZ::MessageGenerator.send method
+      case @parameters.length
+      when 0
+        message_content = TicTacToeRZ::MessageGenerator.send(@type)
+      when 1..4
+        message_content = TicTacToeRZ::MessageGenerator.send(@type, *@parameters)
+      else
+        raise TicTacToeRZ::InvalidValueError, "unknown parameter"
+      end
       if message_content.class != Array
         @text << message_content
       else
@@ -34,6 +42,7 @@ module Models
     def content
       data = { :language_tag => @language_tag,
                :type => @type,
+               :parameters => @parameters,
                :text => @text, 
                :error_message => @error_message}
     end

@@ -48,6 +48,7 @@ module ResponseGenerator
     data = { "message": {
       "language_tag": message_data[:language_tag],
       "type": message_data[:type],
+      "parameters": message_data[:parameters],
       "text": message_data[:text]
       },
       "errors": {
