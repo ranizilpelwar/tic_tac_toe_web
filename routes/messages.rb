@@ -10,7 +10,7 @@ put '/message_content' do
   begin
     message = Models::Message.new
     message.parse(@request_data)
-  rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
+  rescue NoMethodError, TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
     message.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
