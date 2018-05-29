@@ -23,3 +23,14 @@ put '/message_content' do
   end
   ResponseGenerator.generate_message(message.content)
 end
+
+get '/message_content' do
+  begin
+    messages = Models::AllMessages.new
+    messages.construct
+  rescue TicTacToeRZ::InvalidValueError, NoMethodError, ArgumentError => error
+    messages.error_message = "#{ error.class.name }: #{ error.message }"
+    status 400
+  end
+  ResponseGenerator.generate_all_messages(messages.content)
+end
