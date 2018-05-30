@@ -28,9 +28,11 @@ get '/message_content' do
   begin
     messages = Models::AllMessages.new
     messages.construct
+    matches = Models::MatchTypes.new
+    matches.construct
   rescue TicTacToeRZ::InvalidValueError, NoMethodError, ArgumentError => error
     messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
-  ResponseGenerator.generate_all_messages(messages.content)
+  ResponseGenerator.generate_all_messages(messages.content, matches.content)
 end
