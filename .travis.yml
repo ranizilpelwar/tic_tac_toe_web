@@ -12,6 +12,7 @@ matrix:
       install:
         - npm install newman
         - gem install sinatra
+        - gem install sinatra-contrib
       before_script:
         - node --version
         - npm --version
