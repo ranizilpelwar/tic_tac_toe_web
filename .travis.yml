@@ -11,6 +11,7 @@ matrix:
         - 8.2.1
       install:
         - npm install newman
+        - gem install sinatra
       before_script:
         - node --version
         - npm --version
