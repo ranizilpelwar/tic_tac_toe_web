@@ -21,3 +21,4 @@ matrix:
         - ruby tic_tac_toe_web.rb&
       script:
         - node_modules/.bin/newman run postman/tests.postman_collection.json
+
