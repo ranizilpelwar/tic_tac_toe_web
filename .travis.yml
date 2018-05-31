@@ -13,6 +13,7 @@ matrix:
         - npm install newman
         - gem install sinatra
         - gem install sinatra-contrib
+        - gem install tic_tac_toe_rz
       before_script:
         - node --version
         - npm --version
