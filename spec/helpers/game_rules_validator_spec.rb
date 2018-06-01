@@ -23,58 +23,6 @@ RSpec.describe "A GameRulesValidator" do
     end
   end
 
-  context "method called even?" do
-    it "returns true when the input is 2" do
-      number = 2
-      result = GameRulesValidator.even?(number)
-      expect(result).to be true
-    end
-
-    it "returns true when the input is 0" do
-      number = 2
-      result = GameRulesValidator.even?(number)
-      expect(result).to be true
-    end
-
-    it "returns false when the input is 1" do
-      number = 1
-      result = GameRulesValidator.even?(number)
-      expect(result).to be false
-    end
-
-    it "returns false when the input is 3" do
-      number = 1
-      result = GameRulesValidator.even?(number)
-      expect(result).to be false
-    end
-  end
-
-  context "method called odd?" do
-    it "returns true when the input is 3" do
-      number = 3
-      result = GameRulesValidator.odd?(number)
-      expect(result).to be true
-    end
-
-    it "returns true when the input is 1" do
-      number = 1
-      result = GameRulesValidator.odd?(number)
-      expect(result).to be true
-    end
-
-    it "returns false when the input is 0" do
-      number = 0
-      result = GameRulesValidator.odd?(number)
-      expect(result).to be false
-    end
-
-    it "returns false when the input is 2" do
-      number = 2
-      result = GameRulesValidator.odd?(number)
-      expect(result).to be false
-    end
-  end
-
   context "method called legal_move?" do
       shared_examples "legal move" do |player1_symbol, player2_symbol, current_player_symbol, current_player, board, remaining_spaces, result|
         it "returns #{result} when current player is player #{current_player} and remaining_spaces is #{remaining_spaces}" do
