@@ -93,10 +93,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c576bfb0-7d90-4586-9260-181274fb322e",
+						"id": "9f6d09bd-8c55-462e-8503-fe6602d75606",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_valid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"A valid move updates the board\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
@@ -146,11 +146,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "92dd5e41-8aac-4a68-8142-405a90c83b02",
+						"id": "db330892-ed7d-4099-8255-1fca59d888ae",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":4,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_recording_player1_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":4,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"A valid move with record_moves true updates player1's last move\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
@@ -192,11 +192,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "85d6b2dd-4e95-409c-a1bd-97ec352eb8f0",
+						"id": "2b33b6ed-27c4-40b7-8a6b-dd38ea8ec768",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_recording_player1_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4}'",
 							"",
 							"pm.test(\"A valid move with record_moves true updates player2's last move\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
@@ -238,14 +238,20 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e926ce19-5707-4f5d-97b1-2193d498b4e5",
+						"id": "23131b81-de60-4722-a706-fc535164d365",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"An invalid move returns the same game\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"expected_error_message = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns an error message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error_message);",
 							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
@@ -288,13 +294,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "405fc4ca-e77b-468b-8d13-eec089072374",
+						"id": "1a8f1f64-7d7f-4d1c-ae5b-f7eef94c82a4",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_recording_player1_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_recording_player1_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
-							"pm.test(\"A valid move with record_moves true updates player2's last move\", function () {",
+							"pm.test(\"An invalid move doesn't update last move\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
+							"});",
+							"",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns an error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error);",
 							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
@@ -337,17 +349,21 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "26cba9b4-8179-48dc-b3b3-6fc38c6b3625",
+						"id": "2fd475d8-f2fd-46fb-b8c9-38cc36e57e59",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"A move to an occupied tile returns the same game\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
 							"});",
 							"",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
 							"",
+							"pm.test(\"A move to an occupied tile returns an error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error);",
+							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -389,11 +405,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "64cd8fb1-4750-4692-83a9-f1d590fc05d6",
+						"id": "46acae14-7b1d-4f6c-bf2f-e5cb2eff43c5",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_error_for_missing_symbol = '{\"error_message\":\"TicTacToeRZ::NilReferenceError: category: game, property: current_player_symbol\",\"stack_trace\":\"\"}'",
+							"expected_error_for_missing_symbol = '\"TicTacToeRZ::NilReferenceError: category: game, property: current_player_symbol'",
 							"",
 							"pm.test(\"Error message contains the missing property\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error_for_missing_symbol);",
@@ -440,14 +456,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "99e1df39-7194-4e36-8832-56abf9575f48",
+						"id": "596c61e5-29af-4316-8a63-93aa9c92d500",
 						"type": "text/javascript",
 						"exec": [
-							"",
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"An invalid move returns the same game\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns an error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error);",
 							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
@@ -490,14 +511,19 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "18a705b9-3a34-4368-832c-448abd5a6fc2",
+						"id": "9a5ad477-6c94-4438-9440-817b96a52154",
 						"type": "text/javascript",
 						"exec": [
-							"",
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"An invalid move returns the same game\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns an error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error);",
 							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
@@ -1116,10 +1142,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "df831ac3-e667-4573-adad-9b8845a34df3",
+						"id": "84dd5629-ce43-48a1-93f0-5b270bb49b77",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result = '{\"statuses\":{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"},\"errors\":{\"message\":\"TicTacToeRZ::NilReferenceError';",
+							"expected_result = '{\"statuses\":{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"},\"errors\":{\"error_message\":\"TicTacToeRZ::NilReferenceError';",
 							"",
 							"pm.test(\"When player2_symbol property is missing from request, default response is returned with no winner identified\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result);",
@@ -1165,10 +1191,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "19238965-a7a3-4c60-99b0-4d83d0eca340",
+						"id": "244e316d-7ba0-40f3-90d9-d27fffcbe0ce",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_valid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"X\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"A valid move updates the board\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
@@ -1214,10 +1240,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "95fb8fc8-078c-42c2-8d46-b53e85e16458",
+						"id": "4308c48b-0c30-4768-a7ce-7afbcedfe0e2",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_valid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"Y\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":1,\"last_move_for_player2\":4}'",
 							"",
 							"pm.test(\"A valid move records the last move\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
@@ -1263,10 +1289,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d2f6c6b2-d210-484b-87ad-157dd042f6a6",
+						"id": "57fd652f-4d57-4de6-b3f8-d9fcce1d9a9c",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"X\",\"Y\",\"X\",\"X\",\"Y\",\"Y\",\"X\",\"X\",\"Y\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
 							"",
 							"pm.test(\"A full board returns an error when there are no more moves left to play\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
@@ -1309,14 +1335,20 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "18a705b9-3a34-4368-832c-448abd5a6fc2",
+						"id": "a6e8a78e-bf4b-451a-8a6a-e85a68a8cacb",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_result_for_invalid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1}'",
 							"",
 							"pm.test(\"An invalid move returns the same game\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
+							"});",
+							"",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"",
+							"pm.test(\"An invalid move returns an error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_error);",
 							"});",
 							"",
 							"pm.test(\"Status code is 400\", function () {",
@@ -1350,6 +1382,55 @@
 					]
 				},
 				"description": "The same computer player cannot play the turn two times in a row by playing on a board that has Even # of remaining spaces for player 1."
+			},
+			"response": []
+		},
+		{
+			"name": "/computer_players_turn : Valid move updates board and results in a winner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f23e3aa9-e928-4b67-8186-f45f997c71e0",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"X\",\"Y\",\"X\",\"X\",\"Y\",\"6\",\"7\",\"Y\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
+							"",
+							"pm.test(\"A valid move updates the board\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"Y\",\n           \"board\": [\"X\", \"Y\", \"X\", \"X\", \"Y\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":-1,\n           \"last_move_for_player2\":-1\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/computer_players_turn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"computer_players_turn"
+					]
+				},
+				"description": "A valid move updates the board and results in a winner being identified"
 			},
 			"response": []
 		},
@@ -1604,10 +1685,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d93397e3-2cf2-4d2c-bcd9-97e20286c504",
+						"id": "3056657f-4023-4d78-b5dc-88e8db200411",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"welcome\",\"text\":[\"Welcome to Tic Tac Toe! Let\\'s play a game!\"]},\"errors\":{\"error_message\":\"\"'",
+							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"welcome\",\"parameters\":[],\"text\":[\"Welcome to Tic Tac Toe! Let\\'s play a game!\"]},\"errors\":{\"error_message\":\"\"'",
 							"",
 							"pm.test(\"Will respond with welcome text in English\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1622,10 +1703,15 @@
 			],
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"welcome\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"welcome\", \n           \"parameters\": []\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1648,10 +1734,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "09d81189-25d5-41e1-ae46-3f10c41d853b",
+						"id": "f926c781-3c96-4681-ba7c-dfac989d1586",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"welcome\",\"text\":[\"¡Bienvenido a Tic Tac Toe! ¡Juguemos!\"]},\"errors\":{\"error_message\":\"\"'",
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"welcome\",\"parameters\":[],\"text\":[\"¡Bienvenido a Tic Tac Toe! ¡Juguemos!\"]},\"errors\":{\"error_message\":\"\"'",
 							"",
 							"pm.test(\"Will respond with welcome text in Spanish\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1669,7 +1755,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"welcome\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"welcome\",\n           \"parameters\":[]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1692,10 +1778,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9c1add21-4486-4692-b9ac-04129709ca7a",
+						"id": "e9838639-01d8-4741-a399-2cbe65c9eeca",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"player_setup_prompt\",\"text\":[\"¿Qué símbolo quieres usar para cada jugador?\"]},\"errors\":{\"error_message\":\"\"'",
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"player_setup_prompt\",\"parameters\":[],\"text\":[\"¿Qué símbolo quieres usar para cada jugador?\"]},\"errors\":{\"error_message\":\"\"'",
 							"",
 							"pm.test(\"Will respond with player_setup_prompt text in Spanish\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1713,7 +1799,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"player_setup_prompt\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"player_setup_prompt\",\n           \"parameters\":[]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1736,10 +1822,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5e89024e-dd56-44d0-b201-aaee47f881d4",
+						"id": "6bee8117-76f7-485a-a47c-9a44e4867b2b",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"fake_type\",\"text\":[]},\"errors\":{\"error_message\":\"NoMethodError:'",
+							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"fake_type\",\"parameters\":[],\"text\":[]},\"errors\":{\"error_message\":\"NoMethodError:'",
 							"",
 							"pm.test(\"Will respond with error message when type is not found\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1757,7 +1843,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"fake_type\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"fake_type\",\n           \"parameters\":[]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1780,10 +1866,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "929cf558-b1e0-4d72-82f0-198ed66e9a60",
+						"id": "e9e4e646-6773-4260-bada-9079a299e2d6",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"ex\",\"type\":\"welcome\",\"text\":[]},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
+							"expected_response = '{\"message\":{\"language_tag\":\"ex\",\"type\":\"welcome\",\"parameters\":[],\"text\":[]},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
 							"",
 							"pm.test(\"Will respond with error message when language tag is not found\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1801,7 +1887,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"ex\",\n           \"type\": \"welcome\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"ex\",\n           \"type\": \"welcome\",\n           \"parameters\":[]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1824,10 +1910,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "878d3f91-bb80-403b-91ff-dba6f8619437",
+						"id": "53bf416a-7ff3-4f8e-ae42-c5af6ea35fba",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"language_options\",\"text\":[\"1. English\\\\n\",\"2. Spanish\\\\n\"]},\"errors\":{\"error_message\":\"\"'",
+							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"language_options\",\"parameters\":[],\"text\":[\"1. English\\\\n\",\"2. Spanish\\\\n\"]},\"errors\":{\"error_message\":\"\"'",
 							"",
 							"pm.test(\"Will respond with language options text in English\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
@@ -1845,7 +1931,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"language_options\"\n    }\n}"
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"language_options\",\n           \"parameters\":[]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:4567/message_content",
@@ -1859,6 +1945,50 @@
 					]
 				},
 				"description": "Will return language options text in English"
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: player_symbol_prompt in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52c93cd6-042b-4a53-b89c-d1aae57fceed",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"player_symbol_prompt\",\"parameters\":[\"1\"],\"text\":[\"Select a symbol for Player # 1:\"]},\"errors\":{\"error_message\":\"\"'",
+							"",
+							"pm.test(\"Will respond with player_symbol_prompt text in English\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"player_symbol_prompt\", \n           \"parameters\":[\"1\"]\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				},
+				"description": "Will return player_symbol_prompt text in English. This prompt has a parameter."
 			},
 			"response": []
 		},
@@ -2046,6 +2176,49 @@
 					"port": "4567",
 					"path": [
 						"current_player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: all messages in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7832cae2-305a-4a16-b9cb-91c8647d5e9c",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '{\"messages\":{\"welcome\":\"Welcome to Tic Tac Toe! Let\\'s play a game!\",\"language_configuration_prompt\":\"If you would like to change languages: \",\"language_configuration_option\":\"Press L\",\"language_selection_prompt\":\"Which language do you want to use?\",\"player_setup_prompt\":\"What symbol do you want to use for each player?\",\"player_symbol_prompt\":\"Select a symbol for Player # [1]:\",\"player_symbol_option\":\"It can be a letter or a special character on the keyboard.\",\"continue_prompt\":\"Press any key to continue...\",\"undo_last_move_option\":\"OR type the letter U to undo the last move.\",\"game_over\":\"Game Over!\",\"tie_game\":\"No winners this time. It\\'s a tie!\",\"exit_game\":\"Press the letter E to exit the game. Goodbye!\",\"player_won\":\"Player [1] won! Good game!\",\"players_intro\":\"Players: [1] [ [2] ], [3] [ [4] ]\",\"board_intro\":\"Tic Tac Toe Board:\\\\n\",\"board_square_selection\":\"Player [1] picked spot [2]!\",\"undo_completion_for_one_player\":\"Undo complete!\",\"undo_completion_for_both_players\":\"Undo complete for both players!\",\"thinking_process_for_computers_turn\":\"Player [1]\\'s Turn: Player is thinking of next move...\",\"thinking_process_incrementor\":\".\",\"next_move_prompt\":\"Player [1]\\'s Turn: Where do you want to move?\\\\nType a number that you see on the board.\",\"first_player_of_game_prompt\":\"Who should play first, [1] or [2]?\",\"match_selection_prompt\":\"Who is playing? Please select one of the matches below:\\\\n\",\"match_option_description\":\"[1] Vs [2]\",\"option_number\":\"[1]. \",\"title_of_player_setup_screen\":\"Player Setup:\",\"title_of_language_options_screen\":\"Language Setup:\",\"argument_error\":\"Cannot [1] because [2] is [3].\",\"uniqueness_error\":\"Oops! I can\\'t use the same one. Try again.\",\"invalid_selection_error\":\"Oops! I couldn\\'t use that. Please try another key.\",\"invalid_selection_error_for\":\"Oops! I couldn\\'t use that for the setup of [1]. Please try another key.\",\"language_defaults_error\":\"ERROR: Unable to use language stored in global settings. Configure it manually.\",\"no_moves_to_undo_error\":\"There are no moves to undo.\",\"line_spacer\":\"\\\\n\"}'",
+							"",
+							"pm.test(\"Will respond with player_symbol_prompt text in English\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"player_symbol_prompt\", \n           \"parameters\":[\"1\"]\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
 					]
 				}
 			},
