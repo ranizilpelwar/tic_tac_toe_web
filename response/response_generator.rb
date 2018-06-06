@@ -12,10 +12,21 @@ module ResponseGenerator
               "winner": game_status_data[:winner]
           },
           "errors": {
-            "message": game_status_data[:error_message]
+            "error_message": game_status_data[:error_message]
           }
       }
       data.to_json
+  end
+
+  def self.merge(first_response_object, second_response_object)
+    first = JSON.parse(first_response_object)
+    second = JSON.parse(second_response_object)
+    first_error_message = first["errors"]["error_message"]
+    second_error_message = second["errors"]["error_message"]
+    combined_error_message = first_error_message + ", " + second_error_message
+    first["errors"]["error_message"] = combined_error_message
+    merged_data = second.merge(first)
+    merged_data.to_json
   end
 
   def self.generate_matches(match_data)
