@@ -11,6 +11,9 @@ module Models
       @game_over = false
       @winner = ""
       @error_message = ""
+      @board = []
+      @player1_symbol = ""
+      @player2_symbol = ""
     end
 
     def parse(request_data)
