@@ -22,12 +22,24 @@ put '/human_players_turn' do
     begin
       player = Models::HumanPlayer.new(game)
       game = player.play_turn(tile_on_board)
+      players = Models::Players.new(game)
+      game = players.next_player
     rescue TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
   end
-  ResponseGenerator.generate_game(game)
+  game_response = ResponseGenerator.generate_game(game)
+  begin
+    game_status = Models::GameStatus.new
+    game_status.parse(JSON.parse(game_response))
+    game_status.construct
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+    game_status.error_message = "#{ error.class.name }: #{ error.message }"
+    status 400
+  end
+  status_response = ResponseGenerator.generate_game_status(game_status.content)
+  ResponseGenerator.merge(game_response, status_response)
 end
 
 put '/computer_players_turn' do
@@ -41,12 +53,24 @@ put '/computer_players_turn' do
     begin
       player = Models::ComputerPlayer.new(game)
       game = player.play_turn
+      players = Models::Players.new(game)
+      game = players.next_player
     rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
   end
-  ResponseGenerator.generate_game(game)
+  game_response = ResponseGenerator.generate_game(game)
+  begin
+    game_status = Models::GameStatus.new
+    game_status.parse(JSON.parse(game_response))
+    game_status.construct
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+    game_status.error_message = "#{ error.class.name }: #{ error.message }"
+    status 400
+  end
+  status_response = ResponseGenerator.generate_game_status(game_status.content)
+  ResponseGenerator.merge(game_response, status_response)
 end
 
 put '/undo_move' do
