@@ -83,7 +83,7 @@ module ResponseGenerator
     data.to_json
   end
 
-  def self.generate_all_messages(message_data, match_data)
+  def self.generate_all_messages(message_data, match_data, language_data)
     messenger = TicTacToeRZ::MessageGenerator
     data = { "messages": {
                   "welcome": message_data[:welcome],
@@ -126,6 +126,7 @@ module ResponseGenerator
               {"player1_type": match_data[:match2_player1_type], "player2_type": match_data[:match2_player2_type]},
               {"player1_type": match_data[:match3_player1_type], "player2_type": match_data[:match3_player2_type]}
               ],
+            "languages": language_data,
             "errors": {
               "error_message": message_data[:error_message]
             }
