@@ -19,7 +19,7 @@ module Models
     end
 
     def construct
-      @language_adapter.default_language_tag!(@language_tag)
+      @language_adapter.default_language_tag!(@language_tag) if @language_tag != @original_tag
     end
 
     def reset
