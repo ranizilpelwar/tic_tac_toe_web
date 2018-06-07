@@ -119,7 +119,9 @@ module ResponseGenerator
                   "invalid_selection_error_for": message_data[:invalid_selection_error_for],
                   "language_defaults_error": message_data[:language_defaults_error],
                   "no_moves_to_undo_error": message_data[:no_moves_to_undo_error],
-                  "line_spacer": message_data[:line_spacer]
+                  "line_spacer": message_data[:line_spacer],
+                  "configure_language": message_data[:configure_language],
+                  "start_game": message_data[:start_game]
                   },
             "matches": [
               {"player1_type": match_data[:match1_player1_type], "player2_type": match_data[:match1_player2_type]},

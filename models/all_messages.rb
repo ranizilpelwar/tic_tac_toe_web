@@ -43,6 +43,8 @@ module Models
       @no_moves_to_undo_error = ""
       @line_spacer = "\n"
       @error_message = ""
+      @configure_language = ""
+      @start_game = ""
     end
 
     def construct
@@ -81,6 +83,8 @@ module Models
       @language_defaults_error = messenger.language_defaults_error
       @no_moves_to_undo_error = messenger.no_moves_to_undo_error
       @line_spacer = messenger.line_spacer
+      @configure_language = messenger.configure_language
+      @start_game = messenger.start_game
     end
 
     def content
@@ -118,7 +122,9 @@ module Models
         :language_defaults_error => @language_defaults_error,
         :no_moves_to_undo_error => @no_moves_to_undo_error,
         :line_spacer => @line_spacer,
-        :error_message => @error_message
+        :error_message => @error_message,
+        :configure_language => @configure_language,
+        :start_game => @start_game
       }
     end
   end
