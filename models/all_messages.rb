@@ -45,6 +45,12 @@ module Models
       @error_message = ""
       @configure_language = ""
       @start_game = ""
+      @player = ""
+      @go = ""
+      @start_new_game = ""
+      @replay_game_prompt = ""
+      @human = ""
+      @computer = ""
     end
 
     def construct
@@ -85,6 +91,12 @@ module Models
       @line_spacer = messenger.line_spacer
       @configure_language = messenger.configure_language
       @start_game = messenger.start_game
+      @player = messenger.player
+      @go = messenger.go
+      @start_new_game = messenger.start_new_game
+      @replay_game_prompt = messenger.replay_game_prompt
+      @human = messenger.human
+      @computer = messenger.computer
     end
 
     def content
@@ -124,7 +136,13 @@ module Models
         :line_spacer => @line_spacer,
         :error_message => @error_message,
         :configure_language => @configure_language,
-        :start_game => @start_game
+        :start_game => @start_game,
+        :player => @player,
+        :go => @go,
+        :start_new_game => @start_new_game,
+        :replay_game_prompt => @replay_game_prompt,
+        :human => @human,
+        :computer => @computer
       }
     end
   end
