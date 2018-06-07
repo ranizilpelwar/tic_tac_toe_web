@@ -5,6 +5,9 @@ require 'json'
 require_relative '../response/response_generator.rb'
 require_relative '../helpers/object_creator.rb'
 require_relative '../models/language.rb'
+require_relative '../models/default_language.rb'
+require_relative '../models/all_messages.rb'
+require_relative '../models/match_types.rb'
 
 get '/default_language_tag' do
   data = {}
@@ -18,4 +21,29 @@ get '/default_language_tag' do
     status 400
   end
   ResponseGenerator.generate_language_tag(data)
+end
+
+put '/default_language_tag' do
+  begin
+    default_language = Models::DefaultLanguage.new
+    default_language.parse(@request_data)
+    default_language.construct
+    messages = Models::AllMessages.new
+    messages.construct
+    matches = Models::MatchTypes.new
+    matches.construct
+    languages = Models::Language.new
+    languages.construct
+  rescue NoMethodError, TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+    messages.error_message = "#{ error.class.name }: #{ error.message }"
+    status 400
+  else
+    begin
+      messages.construct
+    rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
+      messages.error_message = "#{ error.class.name }: #{ error.message }"
+      status 400  
+    end
+  end
+  ResponseGenerator.generate_all_messages(messages.content, matches.content, languages.content)
 end
