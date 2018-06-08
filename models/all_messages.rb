@@ -145,7 +145,7 @@ module Models
         :replay_game_prompt => @replay_game_prompt,
         :human => @human,
         :computer => @computer, 
-        :undo_move => undo_move
+        :undo_move => @undo_move
       }
     end
   end
