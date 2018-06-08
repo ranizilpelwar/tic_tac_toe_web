@@ -127,7 +127,8 @@ module ResponseGenerator
                   "start_new_game": message_data[:start_new_game],
                   "replay_game_prompt": message_data[:replay_game_prompt],
                   "human": message_data[:human],
-                  "computer": message_data[:computer]
+                  "computer": message_data[:computer],
+                  "undo_move": message_data[:undo_move]
                   },
             "matches": [
               {"player1_type": match_data[:match1_player1_type], "player2_type": match_data[:match1_player2_type]},

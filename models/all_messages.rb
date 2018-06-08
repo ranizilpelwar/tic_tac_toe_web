@@ -51,6 +51,7 @@ module Models
       @replay_game_prompt = ""
       @human = ""
       @computer = ""
+      @undo_move = ""
     end
 
     def construct
@@ -97,6 +98,7 @@ module Models
       @replay_game_prompt = messenger.replay_game_prompt
       @human = messenger.human
       @computer = messenger.computer
+      @undo_move = messenger.undo_move
     end
 
     def content
@@ -142,7 +144,8 @@ module Models
         :start_new_game => @start_new_game,
         :replay_game_prompt => @replay_game_prompt,
         :human => @human,
-        :computer => @computer
+        :computer => @computer, 
+        :undo_move => undo_move
       }
     end
   end
