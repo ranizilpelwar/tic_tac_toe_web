@@ -76,14 +76,19 @@ end
 put '/undo_move' do
   game = {}
   begin
+    puts "before parse"
     game = DataParser.parse_game(@request_data)
+    puts "after parse"
   rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else
     begin
+      puts "before initialize"
       game_movement = Models::GameMovement.new(game)
+      puts "after initialize"
       game = game_movement.undo_move
+      puts "after undo"
     rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       game[:stack_trace] = "#{ error.backtrace.join("\n") }"

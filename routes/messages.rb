@@ -8,20 +8,29 @@ require_relative '../models/message.rb'
 
 put '/message_content' do
   begin
-    message = Models::Message.new
-    message.parse(@request_data)
+    default_language = Models::DefaultLanguage.new
+    current_default_tag = default_language.language_tag
+    default_language.parse(@request_data)
+    default_language.construct
+    messages = Models::AllMessages.new
+    messages.construct
+    matches = Models::MatchTypes.new
+    matches.construct
+    languages = Models::Language.new
+    languages.construct
   rescue NoMethodError, TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
-    message.error_message = "#{ error.class.name }: #{ error.message }"
+    messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
     begin
-      message.construct
+      messages.construct
+      default_language.reset
     rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
-      message.error_message = "#{ error.class.name }: #{ error.message }"
+      messages.error_message = "#{ error.class.name }: #{ error.message }"
       status 400  
     end
   end
-  ResponseGenerator.generate_message(message.content)
+  ResponseGenerator.generate_all_messages(messages.content, matches.content, languages.content)
 end
 
 get '/message_content' do
@@ -30,9 +39,11 @@ get '/message_content' do
     messages.construct
     matches = Models::MatchTypes.new
     matches.construct
+    languages = Models::Language.new
+    languages.construct
   rescue TicTacToeRZ::InvalidValueError, NoMethodError, ArgumentError => error
     messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
-  ResponseGenerator.generate_all_messages(messages.content, matches.content)
+  ResponseGenerator.generate_all_messages(messages.content, matches.content, languages.content)
 end

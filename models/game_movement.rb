@@ -23,6 +23,7 @@ module Models
       @game[:last_move_for_player1] = player_movement_manager.player1_last_move
       @game[:last_move_for_player2] = player_movement_manager.player2_last_move
       @game[:board] = game_board.board
+      @game[:current_player_symbol] = player_manager.get_next_player.symbol
       @game
     end
   end

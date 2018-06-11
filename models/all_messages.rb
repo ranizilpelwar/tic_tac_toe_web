@@ -43,6 +43,15 @@ module Models
       @no_moves_to_undo_error = ""
       @line_spacer = "\n"
       @error_message = ""
+      @configure_language = ""
+      @start_game = ""
+      @player = ""
+      @go = ""
+      @start_new_game = ""
+      @replay_game_prompt = ""
+      @human = ""
+      @computer = ""
+      @undo_move = ""
     end
 
     def construct
@@ -81,6 +90,15 @@ module Models
       @language_defaults_error = messenger.language_defaults_error
       @no_moves_to_undo_error = messenger.no_moves_to_undo_error
       @line_spacer = messenger.line_spacer
+      @configure_language = messenger.configure_language
+      @start_game = messenger.start_game
+      @player = messenger.player
+      @go = messenger.go
+      @start_new_game = messenger.start_new_game
+      @replay_game_prompt = messenger.replay_game_prompt
+      @human = messenger.human
+      @computer = messenger.computer
+      @undo_move = messenger.undo_move
     end
 
     def content
@@ -118,7 +136,16 @@ module Models
         :language_defaults_error => @language_defaults_error,
         :no_moves_to_undo_error => @no_moves_to_undo_error,
         :line_spacer => @line_spacer,
-        :error_message => @error_message
+        :error_message => @error_message,
+        :configure_language => @configure_language,
+        :start_game => @start_game,
+        :player => @player,
+        :go => @go,
+        :start_new_game => @start_new_game,
+        :replay_game_prompt => @replay_game_prompt,
+        :human => @human,
+        :computer => @computer, 
+        :undo_move => @undo_move
       }
     end
   end

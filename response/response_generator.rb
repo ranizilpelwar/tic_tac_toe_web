@@ -83,7 +83,7 @@ module ResponseGenerator
     data.to_json
   end
 
-  def self.generate_all_messages(message_data, match_data)
+  def self.generate_all_messages(message_data, match_data, language_data)
     messenger = TicTacToeRZ::MessageGenerator
     data = { "messages": {
                   "welcome": message_data[:welcome],
@@ -119,13 +119,23 @@ module ResponseGenerator
                   "invalid_selection_error_for": message_data[:invalid_selection_error_for],
                   "language_defaults_error": message_data[:language_defaults_error],
                   "no_moves_to_undo_error": message_data[:no_moves_to_undo_error],
-                  "line_spacer": message_data[:line_spacer]
+                  "line_spacer": message_data[:line_spacer],
+                  "configure_language": message_data[:configure_language],
+                  "start_game": message_data[:start_game],
+                  "player": message_data[:player],
+                  "go": message_data[:go],
+                  "start_new_game": message_data[:start_new_game],
+                  "replay_game_prompt": message_data[:replay_game_prompt],
+                  "human": message_data[:human],
+                  "computer": message_data[:computer],
+                  "undo_move": message_data[:undo_move]
                   },
             "matches": [
               {"player1_type": match_data[:match1_player1_type], "player2_type": match_data[:match1_player2_type]},
               {"player1_type": match_data[:match2_player1_type], "player2_type": match_data[:match2_player2_type]},
               {"player1_type": match_data[:match3_player1_type], "player2_type": match_data[:match3_player2_type]}
               ],
+            "languages": language_data,
             "errors": {
               "error_message": message_data[:error_message]
             }
