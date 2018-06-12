@@ -1,5 +1,4 @@
 require 'tic_tac_toe_rz'
-require './helpers/game_rules_validator.rb'
 
 module Models
   class HumanPlayer

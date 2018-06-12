@@ -1,5 +1,4 @@
 require 'tic_tac_toe_rz'
-require './helpers/game_rules_validator.rb'
 
 module Models
   class ComputerPlayer
@@ -13,7 +12,6 @@ module Models
     end
 
     def play_turn
-      raise TicTacToeRZ::GameRuleViolationError if !GameRulesValidator.legal_move?(@game)
       player_manager = ObjectCreator.player_manager(@game)
       game_board = TicTacToeRZ::GameBoard.new(@game[:board])
       computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
