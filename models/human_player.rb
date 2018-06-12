@@ -1,5 +1,4 @@
 require 'tic_tac_toe_rz'
-require './helpers/game_rules_validator.rb'
 
 module Models
   class HumanPlayer
@@ -8,7 +7,6 @@ module Models
     end
 
     def play_turn(tile_on_board)
-      raise TicTacToeRZ::GameRuleViolationError if !GameRulesValidator.legal_move?(@game)
       game_board = TicTacToeRZ::GameBoard.new(@game[:board])
       return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
       valid_move = return_result.is_valid_move
