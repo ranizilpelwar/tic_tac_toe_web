@@ -18,9 +18,6 @@ matrix:
         - node --version
         - npm --version
         - node_modules/.bin/newman --version
-        - cd /home/travis/.rvm/gems/ruby-2.4.1/gems/tic_tac_toe_rz-1.0.09/lib/tic_tac_toe_rz/TicTacToeRuby.Core/Languages/config/
-        - ls
-        - cd -
         - ruby tic_tac_toe_web.rb&
       script:
         - node_modules/.bin/newman run postman/tests.postman_collection.json
