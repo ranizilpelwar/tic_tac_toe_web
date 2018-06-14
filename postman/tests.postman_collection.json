@@ -506,67 +506,12 @@
 			"response": []
 		},
 		{
-			"name": "/human_players_turn : Returns error for a consecutive move",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "9a5ad477-6c94-4438-9440-817b96a52154",
-						"type": "text/javascript",
-						"exec": [
-							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1}'",
-							"",
-							"pm.test(\"An invalid move returns the same game\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
-							"});",
-							"",
-							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
-							"",
-							"pm.test(\"An invalid move returns an error\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_error);",
-							"});",
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/human_players_turn",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"human_players_turn"
-					]
-				},
-				"description": "The same human player cannot play the turn two times in a row by playing on a board that has Even # of remaining spaces for player 1."
-			},
-			"response": []
-		},
-		{
 			"name": "/game : Request returns game with defaults",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "2dd923d4-431f-450a-bdfa-bd67f6ddd9e3",
+						"id": "7aca5ae5-1856-4ed6-8293-d2477a714780",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Content-Type is present\", function () {",
@@ -1289,10 +1234,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "57fd652f-4d57-4de6-b3f8-d9fcce1d9a9c",
+						"id": "3d2aac05-9b13-42fe-9b62-d289b975bf06",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_invalid_move = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_result_for_invalid_move = '\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
 							"",
 							"pm.test(\"A full board returns an error when there are no more moves left to play\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
@@ -1326,62 +1271,6 @@
 					]
 				},
 				"description": "An invalid move on an occupied tile returns an error message"
-			},
-			"response": []
-		},
-		{
-			"name": "/computer_players_turn : Returns error for a consecutive move",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a6e8a78e-bf4b-451a-8a6a-e85a68a8cacb",
-						"type": "text/javascript",
-						"exec": [
-							"",
-							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"X\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":1,\"last_move_for_player2\":-1}'",
-							"",
-							"pm.test(\"An invalid move returns the same game\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
-							"});",
-							"",
-							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
-							"",
-							"pm.test(\"An invalid move returns an error\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_error);",
-							"});",
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"X\", \n           \"player2_symbol\": \"Y\",\n           \"current_player_symbol\": \"X\",\n           \"board\": [\"1\", \"X\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": false,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":-1\n    },\n    \"actions\": {\n           \"tile_on_board\": \"5\"\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/computer_players_turn",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"computer_players_turn"
-					]
-				},
-				"description": "The same computer player cannot play the turn two times in a row by playing on a board that has Even # of remaining spaces for player 1."
 			},
 			"response": []
 		},
@@ -1680,319 +1569,6 @@
 			"response": []
 		},
 		{
-			"name": "/message_content: welcome in English",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "3056657f-4023-4d78-b5dc-88e8db200411",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"welcome\",\"parameters\":[],\"text\":[\"Welcome to Tic Tac Toe! Let\\'s play a game!\"]},\"errors\":{\"error_message\":\"\"'",
-							"",
-							"pm.test(\"Will respond with welcome text in English\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"welcome\", \n           \"parameters\": []\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return welcome text in English"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: welcome in Spanish",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f926c781-3c96-4681-ba7c-dfac989d1586",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"welcome\",\"parameters\":[],\"text\":[\"¡Bienvenido a Tic Tac Toe! ¡Juguemos!\"]},\"errors\":{\"error_message\":\"\"'",
-							"",
-							"pm.test(\"Will respond with welcome text in Spanish\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"welcome\",\n           \"parameters\":[]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return welcome text in Spanish"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: player_setup_prompt in Spanish",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e9838639-01d8-4741-a399-2cbe65c9eeca",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"player_setup_prompt\",\"parameters\":[],\"text\":[\"¿Qué símbolo quieres usar para cada jugador?\"]},\"errors\":{\"error_message\":\"\"'",
-							"",
-							"pm.test(\"Will respond with player_setup_prompt text in Spanish\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"player_setup_prompt\",\n           \"parameters\":[]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return player_setup_prompt text in Spanish"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: Returns error when type is not found",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "6bee8117-76f7-485a-a47c-9a44e4867b2b",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"es\",\"type\":\"fake_type\",\"parameters\":[],\"text\":[]},\"errors\":{\"error_message\":\"NoMethodError:'",
-							"",
-							"pm.test(\"Will respond with error message when type is not found\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"es\",\n           \"type\": \"fake_type\",\n           \"parameters\":[]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return error message when the provided type is not found in the application text yaml file"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: Returns error when language tag is not found",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e9e4e646-6773-4260-bada-9079a299e2d6",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"ex\",\"type\":\"welcome\",\"parameters\":[],\"text\":[]},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
-							"",
-							"pm.test(\"Will respond with error message when language tag is not found\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"ex\",\n           \"type\": \"welcome\",\n           \"parameters\":[]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return error message when the provided language tag is not found in the available list of tags in the gem"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: language options in English",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "53bf416a-7ff3-4f8e-ae42-c5af6ea35fba",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"language_options\",\"parameters\":[],\"text\":[\"1. English\\\\n\",\"2. Spanish\\\\n\"]},\"errors\":{\"error_message\":\"\"'",
-							"",
-							"pm.test(\"Will respond with language options text in English\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"language_options\",\n           \"parameters\":[]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return language options text in English"
-			},
-			"response": []
-		},
-		{
-			"name": "/message_content: player_symbol_prompt in English",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "52c93cd6-042b-4a53-b89c-d1aae57fceed",
-						"type": "text/javascript",
-						"exec": [
-							"expected_response = '{\"message\":{\"language_tag\":\"en\",\"type\":\"player_symbol_prompt\",\"parameters\":[\"1\"],\"text\":[\"Select a symbol for Player # 1:\"]},\"errors\":{\"error_message\":\"\"'",
-							"",
-							"pm.test(\"Will respond with player_symbol_prompt text in English\", function () {",
-							"    pm.expect(pm.response.text()).to.include(expected_response);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"message\": {\n           \"language_tag\": \"en\",\n           \"type\": \"player_symbol_prompt\", \n           \"parameters\":[\"1\"]\n    }\n}"
-				},
-				"url": {
-					"raw": "http://localhost:4567/message_content",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4567",
-					"path": [
-						"message_content"
-					]
-				},
-				"description": "Will return player_symbol_prompt text in English. This prompt has a parameter."
-			},
-			"response": []
-		},
-		{
 			"name": "/default_language_tag : default tag returned",
 			"event": [
 				{
@@ -2187,13 +1763,25 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7832cae2-305a-4a16-b9cb-91c8647d5e9c",
+						"id": "2848177e-dc77-453a-b637-d8596d68be67",
 						"type": "text/javascript",
 						"exec": [
-							"expected_response = '{\"messages\":{\"welcome\":\"Welcome to Tic Tac Toe! Let\\'s play a game!\",\"language_configuration_prompt\":\"If you would like to change languages: \",\"language_configuration_option\":\"Press L\",\"language_selection_prompt\":\"Which language do you want to use?\",\"player_setup_prompt\":\"What symbol do you want to use for each player?\",\"player_symbol_prompt\":\"Select a symbol for Player # [1]:\",\"player_symbol_option\":\"It can be a letter or a special character on the keyboard.\",\"continue_prompt\":\"Press any key to continue...\",\"undo_last_move_option\":\"OR type the letter U to undo the last move.\",\"game_over\":\"Game Over!\",\"tie_game\":\"No winners this time. It\\'s a tie!\",\"exit_game\":\"Press the letter E to exit the game. Goodbye!\",\"player_won\":\"Player [1] won! Good game!\",\"players_intro\":\"Players: [1] [ [2] ], [3] [ [4] ]\",\"board_intro\":\"Tic Tac Toe Board:\\\\n\",\"board_square_selection\":\"Player [1] picked spot [2]!\",\"undo_completion_for_one_player\":\"Undo complete!\",\"undo_completion_for_both_players\":\"Undo complete for both players!\",\"thinking_process_for_computers_turn\":\"Player [1]\\'s Turn: Player is thinking of next move...\",\"thinking_process_incrementor\":\".\",\"next_move_prompt\":\"Player [1]\\'s Turn: Where do you want to move?\\\\nType a number that you see on the board.\",\"first_player_of_game_prompt\":\"Who should play first, [1] or [2]?\",\"match_selection_prompt\":\"Who is playing? Please select one of the matches below:\\\\n\",\"match_option_description\":\"[1] Vs [2]\",\"option_number\":\"[1]. \",\"title_of_player_setup_screen\":\"Player Setup:\",\"title_of_language_options_screen\":\"Language Setup:\",\"argument_error\":\"Cannot [1] because [2] is [3].\",\"uniqueness_error\":\"Oops! I can\\'t use the same one. Try again.\",\"invalid_selection_error\":\"Oops! I couldn\\'t use that. Please try another key.\",\"invalid_selection_error_for\":\"Oops! I couldn\\'t use that for the setup of [1]. Please try another key.\",\"language_defaults_error\":\"ERROR: Unable to use language stored in global settings. Configure it manually.\",\"no_moves_to_undo_error\":\"There are no moves to undo.\",\"line_spacer\":\"\\\\n\"}'",
+							"expected_response = '\"player_symbol_prompt\":\"Symbol for Player # [1]:\"'",
 							"",
 							"pm.test(\"Will respond with player_symbol_prompt text in English\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"expected_matches = '\"matches\":[{\"player1_type\":\"Human\",\"player2_type\":\"Human\"},{\"player1_type\":\"Human\",\"player2_type\":\"Computer\"},{\"player1_type\":\"Computer\",\"player2_type\":\"Computer\"}]'",
+							"",
+							"pm.test(\"All messages includes the available matches\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_matches);",
+							"});",
+							"",
+							"expected_languages = '\"languages\":[{\"description\":\"English\",\"language_tag\":\"en\"},{\"description\":\"Spanish\",\"language_tag\":\"es\"}],\"errors\":{\"error_message\":\"\"}}'",
+							"",
+							"pm.test(\"All messages includes the available languages\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_languages);",
 							"});",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
@@ -2221,6 +1809,163 @@
 						"message_content"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: all messages in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de6e2c03-60db-4bcd-a666-06aaf915f3fb",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '\"player_symbol_prompt\":\"Símbolo para Jugador # [1]'",
+							"",
+							"pm.test(\"Will respond with player_symbol_prompt text in Spanish\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"language_tag\": \"es\" }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/message_content: all messages in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "399a69f6-ad27-4f96-b17e-3aa4af454223",
+						"type": "text/javascript",
+						"exec": [
+							"expected_response = '\"player_symbol_prompt\":\"Symbol for Player # [1]:\"'",
+							"",
+							"pm.test(\"Will respond with player_symbol_prompt text in English\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_response);",
+							"});",
+							"",
+							"expected_matches = '\"matches\":[{\"player1_type\":\"Human\",\"player2_type\":\"Human\"},{\"player1_type\":\"Human\",\"player2_type\":\"Computer\"},{\"player1_type\":\"Computer\",\"player2_type\":\"Computer\"}]'",
+							"",
+							"pm.test(\"All messages includes the available matches\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_matches);",
+							"});",
+							"",
+							"expected_languages = '\"languages\":[{\"description\":\"English\",\"language_tag\":\"en\"},{\"description\":\"Spanish\",\"language_tag\":\"es\"}],\"errors\":{\"error_message\":\"\"}}'",
+							"",
+							"pm.test(\"All messages includes the available languages\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_languages);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"language_tag\": \"en\" }"
+				},
+				"url": {
+					"raw": "http://localhost:4567/message_content",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"message_content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/undo_move: Computer vs Human - updates both players moves",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6a0b89c-95d0-405d-aeb0-42060e274c79",
+						"type": "text/javascript",
+						"exec": [
+							"expected_result_for_valid_move = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"B\",\"player2_symbol\":\"A\",\"current_player_symbol\":\"A\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"B\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"\",\"stack_trace\":\"\"}}'",
+							"",
+							"pm.test(\"In a Computer vs Human match, it reverts both players moves\", function () {",
+							"    pm.expect(pm.response.text()).to.include(expected_result_for_valid_move);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"game\": {\n           \"language_tag\": \"en\",\n           \"match_number\": 2,\n           \"player1_symbol\": \"B\", \n           \"player2_symbol\": \"A\",\n           \"current_player_symbol\": \"A\",\n           \"board\": [\"1\", \"B\", \"A\", \"4\", \"B\", \"6\", \"7\", \"8\", \"9\"],\n           \"record_moves\": true,\n           \"last_move_for_player1\":1,\n           \"last_move_for_player2\":2\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4567/undo_move",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"undo_move"
+					]
+				},
+				"description": "In a Human vs Computer match, where the computer goes first, the undo_move action will revert both players moves."
 			},
 			"response": []
 		}
