@@ -12,6 +12,7 @@ require_relative 'routes/languages.rb'
 require_relative 'routes/games.rb'
 require_relative 'routes/current_player.rb'
 require_relative 'helpers/object_creator.rb'
+require 'openssl'
 
 before do
 	headers \
