@@ -4,4 +4,4 @@ gem "rspec"
 gem "tic_tac_toe_rz"
 gem "sinatra"
 gem "sinatra-contrib"
-gem 'backports', :require => false
+gem 'backports'
