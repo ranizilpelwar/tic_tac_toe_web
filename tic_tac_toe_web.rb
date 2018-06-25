@@ -31,3 +31,7 @@ options '*' do
   response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, Content-Type, Cache-Control, Accept"
   status 200
 end
+
+get '/' do
+  "Welcome to Tic Tac Toe!"
+end
