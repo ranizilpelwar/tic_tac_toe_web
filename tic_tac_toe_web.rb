@@ -17,7 +17,8 @@ require_relative 'helpers/object_creator.rb'
 before do
 	headers \
   'Content-Type' => 'application/json',
-  'Access-Control-Allow-Origin' => '*'
+  'Access-Control-Allow-Origin' => '*', 
+  'X-Content-Type-Options' => 'nosniff'
   if request.body.size > 0
     request.body.rewind
     @request_data = JSON.parse request.body.read
