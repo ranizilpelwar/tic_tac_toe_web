@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-ruby "2.5.0"
 gem "rspec"
 gem "tic_tac_toe_rz"
 gem "sinatra"
