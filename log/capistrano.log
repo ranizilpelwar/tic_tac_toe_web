@@ -1,0 +1,251 @@
+# Logfile created on 2018-06-28 16:24:12 -0400 by logger.rb/61378
+  INFO ---------------------------------------------------------------------------
+  INFO START 2018-06-28 16:24:12 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [d7ab0ee0] Running [ -d ~/.rvm ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [d7ab0ee0] Command: [ -d ~/.rvm ]
+ DEBUG [5e001251] Running ~/.rvm/bin/rvm version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [5e001251] Command: ( export PATH="/usr/local/bin:$PATH" ; ~/.rvm/bin/rvm version )
+ DEBUG [e8ba1bc9] Running ~/.rvm/bin/rvm current as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [e8ba1bc9] Command: ( export PATH="/usr/local/bin:$PATH" ; ~/.rvm/bin/rvm current )
+ DEBUG [a54021f0] Running ~/.rvm/bin/rvm default do ruby --version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [a54021f0] Command: ( export PATH="/usr/local/bin:$PATH" ; ~/.rvm/bin/rvm default do ruby --version )
+  INFO rbenv: rbenv_ruby is not set; ruby version will be defined by the remote hosts via rbenv
+  INFO [5b1d9339] Running /usr/bin/env mkdir -p /tmp as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [5b1d9339] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mkdir -p /tmp )
+  INFO [2c9158aa] Running /usr/bin/env #<StringIO:0x00007f885db45c20> /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [2c9158aa] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env #<StringIO:0x00007f885db45c20> /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh )
+  INFO [86bfe3b3] Running /usr/bin/env chmod 700 /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [86bfe3b3] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env chmod 700 /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh )
+  INFO [93a71fcc] Running /usr/bin/env git ls-remote git@github.com:ranizilpelwar/tic_tac_toe_web.git HEAD as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [93a71fcc] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git ls-remote git@github.com:ranizilpelwar/tic_tac_toe_web.git HEAD )
+  INFO [092cbdc2] Running /usr/bin/env mkdir -p /var/www/html/shared /var/www/html/releases as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [092cbdc2] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mkdir -p /var/www/html/shared /var/www/html/releases )
+ DEBUG [74f0cdc2] Running [ -f /var/www/html/current/REVISION ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [74f0cdc2] Command: [ -f /var/www/html/current/REVISION ]
+ DEBUG [32303739] Running /usr/bin/env cat /var/www/html/current/REVISION 2>/dev/null as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [32303739] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env cat /var/www/html/current/REVISION 2>/dev/null )
+ DEBUG [3763451f] Running [ -f /var/www/html/repo/HEAD ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [3763451f] Command: [ -f /var/www/html/repo/HEAD ]
+  INFO The repository mirror is at /var/www/html/repo
+ DEBUG [42575c88] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [42575c88] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+  INFO [e06e5d9a] Running /usr/bin/env git remote set-url origin git@github.com:ranizilpelwar/tic_tac_toe_web.git as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [e06e5d9a] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git remote set-url origin git@github.com:ranizilpelwar/tic_tac_toe_web.git )
+  INFO [94135925] Running /usr/bin/env git remote update --prune as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [94135925] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [22f5855d] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [22f5855d] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+  INFO [c867c937] Running /usr/bin/env mkdir -p /var/www/html/releases/20180628202412 as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [c867c937] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env mkdir -p /var/www/html/releases/20180628202412 )
+  INFO [0059b129] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/html/releases/20180628202412 as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [0059b129] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/html/releases/20180628202412 )
+ DEBUG [fd8072fe] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [fd8072fe] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+ DEBUG [98469605] Running /usr/bin/env git rev-list --max-count=1 master as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [98469605] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [f22689a4] Running if test ! -d /var/www/html/releases/20180628202412; then echo "Directory does not exist '/var/www/html/releases/20180628202412'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [f22689a4] Command: if test ! -d /var/www/html/releases/20180628202412; then echo "Directory does not exist '/var/www/html/releases/20180628202412'" 1>&2; false; fi
+  INFO [afe56341] Running /usr/bin/env echo "" > REVISION as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [afe56341] Command: cd /var/www/html/releases/20180628202412 && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env echo "" > REVISION )
+ DEBUG [f2710f74] Running if test ! -d /var/www/html/releases/20180628202412; then echo "Directory does not exist '/var/www/html/releases/20180628202412'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [f2710f74] Command: if test ! -d /var/www/html/releases/20180628202412; then echo "Directory does not exist '/var/www/html/releases/20180628202412'" 1>&2; false; fi
+ DEBUG [23f01bef] Running $HOME/.rbenv/bin/rbenv exec ~/.rvm/bin/rvm default do bundle check --path /var/www/html/shared/bundle as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [23f01bef] Command: cd /var/www/html/releases/20180628202412 && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; $HOME/.rbenv/bin/rbenv exec ~/.rvm/bin/rvm default do bundle check --path /var/www/html/shared/bundle )
+  INFO [6cebf54b] Running /usr/bin/env ln -s /var/www/html/releases/20180628202412 /var/www/html/releases/current as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [6cebf54b] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env ln -s /var/www/html/releases/20180628202412 /var/www/html/releases/current )
+  INFO [6a103eef] Running /usr/bin/env mv /var/www/html/releases/current /var/www/html as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [6a103eef] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mv /var/www/html/releases/current /var/www/html )
+ DEBUG [067f967e] Running /usr/bin/env ls -x /var/www/html/releases as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [067f967e] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env ls -x /var/www/html/releases )
+ DEBUG [ce035923] Running if test ! -d /var/www/html/releases; then echo "Directory does not exist '/var/www/html/releases'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [ce035923] Command: if test ! -d /var/www/html/releases; then echo "Directory does not exist '/var/www/html/releases'" 1>&2; false; fi
+  INFO [594ba41f] Running /usr/bin/env echo "Branch master (at ) deployed as release 20180628202412 by ranizilpelwar" >> /var/www/html/revisions.log as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [594ba41f] Command: cd /var/www/html/releases && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env echo "Branch master (at ) deployed as release 20180628202412 by ranizilpelwar" >> /var/www/html/revisions.log )
+  INFO ---------------------------------------------------------------------------
+  INFO START 2018-06-28 16:24:38 -0400 cap production deploy--trace
+  INFO ---------------------------------------------------------------------------
+ DEBUG [0c031675] Running [ -d ~/.rvm ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [0c031675] Command: [ -d ~/.rvm ]
+ DEBUG [0c031675] Finished in 0.721 seconds with exit status 1 (failed).
+ DEBUG [f2761893] Running [ -d /usr/local/rvm ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [f2761893] Command: [ -d /usr/local/rvm ]
+ DEBUG [f2761893] Finished in 0.235 seconds with exit status 0 (successful).
+ DEBUG [d3475859] Running /usr/local/rvm/bin/rvm version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [d3475859] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm version )
+ DEBUG [d3475859] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [d3475859] 	rvm 1.29.3 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+ DEBUG [d3475859] Finished in 0.383 seconds with exit status 0 (successful).
+ DEBUG [6296a233] Running /usr/local/rvm/bin/rvm current as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [6296a233] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm current )
+ DEBUG [6296a233] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [6296a233] 	ruby-2.4.4
+ DEBUG [6296a233] Finished in 0.406 seconds with exit status 0 (successful).
+ DEBUG [24d51eba] Running /usr/local/rvm/bin/rvm default do ruby --version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [24d51eba] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm default do ruby --version )
+ DEBUG [24d51eba] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [24d51eba] 	ruby 2.4.4p296 (2018-03-28 revision 63013) [x86_64-linux]
+ DEBUG [24d51eba] Finished in 0.714 seconds with exit status 0 (successful).
+  INFO rbenv: rbenv_ruby is not set; ruby version will be defined by the remote hosts via rbenv
+  INFO ---------------------------------------------------------------------------
+  INFO START 2018-06-28 16:24:59 -0400 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [57d4ebdd] Running [ -d ~/.rvm ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [57d4ebdd] Command: [ -d ~/.rvm ]
+ DEBUG [57d4ebdd] Finished in 0.570 seconds with exit status 1 (failed).
+ DEBUG [153328c6] Running [ -d /usr/local/rvm ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [153328c6] Command: [ -d /usr/local/rvm ]
+ DEBUG [153328c6] Finished in 0.235 seconds with exit status 0 (successful).
+ DEBUG [ae2dcf7e] Running /usr/local/rvm/bin/rvm version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [ae2dcf7e] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm version )
+ DEBUG [ae2dcf7e] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [ae2dcf7e] 	rvm 1.29.3 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+ DEBUG [ae2dcf7e] Finished in 0.420 seconds with exit status 0 (successful).
+ DEBUG [df5aa5f3] Running /usr/local/rvm/bin/rvm current as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [df5aa5f3] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm current )
+ DEBUG [df5aa5f3] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [df5aa5f3] 	ruby-2.4.4
+ DEBUG [df5aa5f3] Finished in 0.337 seconds with exit status 0 (successful).
+ DEBUG [7cba5c74] Running /usr/local/rvm/bin/rvm default do ruby --version as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [7cba5c74] Command: ( export PATH="/usr/local/bin:$PATH" ; /usr/local/rvm/bin/rvm default do ruby --version )
+ DEBUG [7cba5c74] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [7cba5c74] 	ruby 2.4.4p296 (2018-03-28 revision 63013) [x86_64-linux]
+ DEBUG [7cba5c74] Finished in 0.490 seconds with exit status 0 (successful).
+  INFO rbenv: rbenv_ruby is not set; ruby version will be defined by the remote hosts via rbenv
+  INFO [ac4086ce] Running /usr/bin/env mkdir -p /tmp as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [ac4086ce] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mkdir -p /tmp )
+  INFO [ac4086ce] Finished in 0.231 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh 0.0%
+  INFO Uploading /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh 100.0%
+  INFO [77eb6af1] Running /usr/bin/env chmod 700 /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [77eb6af1] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env chmod 700 /tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh )
+  INFO [77eb6af1] Finished in 0.237 seconds with exit status 0 (successful).
+  INFO [13ee7538] Running /usr/bin/env git ls-remote git@github.com:ranizilpelwar/tic_tac_toe_web.git HEAD as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [13ee7538] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git ls-remote git@github.com:ranizilpelwar/tic_tac_toe_web.git HEAD )
+ DEBUG [13ee7538] 	ab5f457ab97aae2a01b14995bf124c8656d991b5	HEAD
+  INFO [13ee7538] Finished in 3.360 seconds with exit status 0 (successful).
+  INFO [a4e00b86] Running /usr/bin/env mkdir -p /var/www/html/shared /var/www/html/releases as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [a4e00b86] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mkdir -p /var/www/html/shared /var/www/html/releases )
+  INFO [a4e00b86] Finished in 0.195 seconds with exit status 0 (successful).
+ DEBUG [b01b88df] Running [ -f /var/www/html/current/REVISION ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [b01b88df] Command: [ -f /var/www/html/current/REVISION ]
+ DEBUG [b01b88df] Finished in 0.235 seconds with exit status 1 (failed).
+ DEBUG [1a4b0a82] Running [ -f /var/www/html/repo/HEAD ] as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [1a4b0a82] Command: [ -f /var/www/html/repo/HEAD ]
+ DEBUG [1a4b0a82] Finished in 0.235 seconds with exit status 1 (failed).
+ DEBUG [a72c5718] Running if test ! -d /var/www/html; then echo "Directory does not exist '/var/www/html'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [a72c5718] Command: if test ! -d /var/www/html; then echo "Directory does not exist '/var/www/html'" 1>&2; false; fi
+ DEBUG [a72c5718] Finished in 0.237 seconds with exit status 0 (successful).
+  INFO [7cce957e] Running /usr/bin/env git clone --mirror git@github.com:ranizilpelwar/tic_tac_toe_web.git /var/www/html/repo as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [7cce957e] Command: cd /var/www/html && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git clone --mirror git@github.com:ranizilpelwar/tic_tac_toe_web.git /var/www/html/repo )
+ DEBUG [7cce957e] 	Cloning into bare repository '/var/www/html/repo'...
+ DEBUG [7cce957e] 	Warning: Permanently added the RSA host key for IP address '192.30.253.112' to the list of known hosts.
+  INFO [7cce957e] Finished in 1.652 seconds with exit status 0 (successful).
+ DEBUG [968cbb04] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [968cbb04] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+ DEBUG [968cbb04] Finished in 0.192 seconds with exit status 0 (successful).
+  INFO [d2c6bbb8] Running /usr/bin/env git remote set-url origin git@github.com:ranizilpelwar/tic_tac_toe_web.git as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [d2c6bbb8] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git remote set-url origin git@github.com:ranizilpelwar/tic_tac_toe_web.git )
+  INFO [d2c6bbb8] Finished in 0.251 seconds with exit status 0 (successful).
+  INFO [2caf9ba2] Running /usr/bin/env git remote update --prune as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [2caf9ba2] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [2caf9ba2] 	Fetching origin
+  INFO [2caf9ba2] Finished in 0.695 seconds with exit status 0 (successful).
+ DEBUG [2ab09397] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [2ab09397] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+ DEBUG [2ab09397] Finished in 0.187 seconds with exit status 0 (successful).
+  INFO [298da9a4] Running /usr/bin/env mkdir -p /var/www/html/releases/20180628202506 as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [298da9a4] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env mkdir -p /var/www/html/releases/20180628202506 )
+  INFO [298da9a4] Finished in 0.252 seconds with exit status 0 (successful).
+  INFO [75e9906e] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/html/releases/20180628202506 as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [75e9906e] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/html/releases/20180628202506 )
+  INFO [75e9906e] Finished in 0.256 seconds with exit status 0 (successful).
+ DEBUG [d1507313] Running if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [d1507313] Command: if test ! -d /var/www/html/repo; then echo "Directory does not exist '/var/www/html/repo'" 1>&2; false; fi
+ DEBUG [d1507313] Finished in 0.236 seconds with exit status 0 (successful).
+ DEBUG [029a173b] Running /usr/bin/env git rev-list --max-count=1 master as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [029a173b] Command: cd /var/www/html/repo && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-tic_tac_toe_web-production-ranizilpelwar.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [029a173b] 	ab5f457ab97aae2a01b14995bf124c8656d991b5
+ DEBUG [029a173b] Finished in 0.252 seconds with exit status 0 (successful).
+ DEBUG [5fb33bca] Running if test ! -d /var/www/html/releases/20180628202506; then echo "Directory does not exist '/var/www/html/releases/20180628202506'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [5fb33bca] Command: if test ! -d /var/www/html/releases/20180628202506; then echo "Directory does not exist '/var/www/html/releases/20180628202506'" 1>&2; false; fi
+ DEBUG [5fb33bca] Finished in 0.236 seconds with exit status 0 (successful).
+  INFO [1bdb4fc8] Running /usr/bin/env echo "ab5f457ab97aae2a01b14995bf124c8656d991b5" > REVISION as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [1bdb4fc8] Command: cd /var/www/html/releases/20180628202506 && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env echo "ab5f457ab97aae2a01b14995bf124c8656d991b5" > REVISION )
+  INFO [1bdb4fc8] Finished in 0.297 seconds with exit status 0 (successful).
+ DEBUG [8e18297b] Running if test ! -d /var/www/html/releases/20180628202506; then echo "Directory does not exist '/var/www/html/releases/20180628202506'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [8e18297b] Command: if test ! -d /var/www/html/releases/20180628202506; then echo "Directory does not exist '/var/www/html/releases/20180628202506'" 1>&2; false; fi
+ DEBUG [8e18297b] Finished in 0.234 seconds with exit status 0 (successful).
+ DEBUG [eab8f174] Running $HOME/.rbenv/bin/rbenv exec /usr/local/rvm/bin/rvm default do bundle check --path /var/www/html/shared/bundle as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [eab8f174] Command: cd /var/www/html/releases/20180628202506 && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; $HOME/.rbenv/bin/rbenv exec /usr/local/rvm/bin/rvm default do bundle check --path /var/www/html/shared/bundle )
+ DEBUG [eab8f174] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+ DEBUG [eab8f174] 	The following gems are missing
+ DEBUG [eab8f174] 	 * backports (3.11.3)
+ DEBUG [eab8f174] 	 * diff-lcs (1.3)
+ DEBUG [eab8f174] 	 * multi_json (1.13.1)
+ DEBUG [eab8f174] 	 * mustermann (1.0.2)
+ DEBUG [eab8f174] 	 * rack (2.0.5)
+ DEBUG [eab8f174] 	 * rack-protection (2.0.1)
+ DEBUG [eab8f174] 	 * rspec-support (3.7.1)
+ DEBUG [eab8f174] 	 * rspec-core (3.7.1)
+ DEBUG [eab8f174] 	 * rspec-expectations (3.7.0)
+ DEBUG [eab8f174] 	 * rspec-mocks (3.7.0)
+ DEBUG [eab8f174] 	 * rspec (3.7.0)
+ DEBUG [eab8f174] 	 * tilt (2.0.8)
+ DEBUG [eab8f174] 	 * sinatra (2.0.1)
+ DEBUG [eab8f174] 	 * sinatra-contrib (2.0.1)
+ DEBUG [eab8f174] 	 * tic_tac_toe_rz (1.1.00)
+ DEBUG [eab8f174] 	Install missing gems with `bundle install`
+ DEBUG [eab8f174] Finished in 1.100 seconds with exit status 1 (failed).
+  INFO [f83a9642] Running $HOME/.rbenv/bin/rbenv exec /usr/local/rvm/bin/rvm default do bundle install --path /var/www/html/shared/bundle --without development test --deployment --quiet as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [f83a9642] Command: cd /var/www/html/releases/20180628202506 && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; $HOME/.rbenv/bin/rbenv exec /usr/local/rvm/bin/rvm default do bundle install --path /var/www/html/shared/bundle --without development test --deployment --quiet )
+ DEBUG [f83a9642] 	Warning! PATH is not properly set up, '/usr/local/rvm/gems/ruby-2.4.4/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.4'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+  INFO [f83a9642] Finished in 5.629 seconds with exit status 0 (successful).
+  INFO [10544740] Running /usr/bin/env ln -s /var/www/html/releases/20180628202506 /var/www/html/releases/current as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [10544740] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env ln -s /var/www/html/releases/20180628202506 /var/www/html/releases/current )
+  INFO [10544740] Finished in 0.236 seconds with exit status 0 (successful).
+  INFO [61b76b4b] Running /usr/bin/env mv /var/www/html/releases/current /var/www/html as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [61b76b4b] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env mv /var/www/html/releases/current /var/www/html )
+  INFO [61b76b4b] Finished in 0.238 seconds with exit status 0 (successful).
+ DEBUG [0db167a9] Running /usr/bin/env ls -x /var/www/html/releases as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [0db167a9] Command: ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env ls -x /var/www/html/releases )
+ DEBUG [0db167a9] 	20180628202506
+ DEBUG [0db167a9] Finished in 0.237 seconds with exit status 0 (successful).
+ DEBUG [3ae37e6b] Running if test ! -d /var/www/html/releases; then echo "Directory does not exist '/var/www/html/releases'" 1>&2; false; fi as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [3ae37e6b] Command: if test ! -d /var/www/html/releases; then echo "Directory does not exist '/var/www/html/releases'" 1>&2; false; fi
+ DEBUG [3ae37e6b] Finished in 0.234 seconds with exit status 0 (successful).
+  INFO [3129831c] Running /usr/bin/env echo "Branch master (at ab5f457ab97aae2a01b14995bf124c8656d991b5) deployed as release 20180628202506 by ranizilpelwar" >> /var/www/html/revisions.log as ranizilpelwar@ec2-18-191-247-154.us-east-2.compute.amazonaws.com
+ DEBUG [3129831c] Command: cd /var/www/html/releases && ( export PATH="/usr/local/bin:$PATH" RBENV_ROOT="$HOME/.rbenv" RBENV_VERSION="" ; /usr/bin/env echo "Branch master (at ab5f457ab97aae2a01b14995bf124c8656d991b5) deployed as release 20180628202506 by ranizilpelwar" >> /var/www/html/revisions.log )
+  INFO [3129831c] Finished in 0.251 seconds with exit status 0 (successful).
