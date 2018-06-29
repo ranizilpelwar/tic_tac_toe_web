@@ -33,6 +33,9 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
+    passenger (5.3.3)
+      rack
+      rake (>= 0.8.1)
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
@@ -84,6 +87,7 @@ DEPENDENCIES
   diff-lcs
   multi_json
   mustermann
+  passenger
   rack-protection
   rspec
   sinatra
