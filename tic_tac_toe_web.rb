@@ -17,7 +17,7 @@ require_relative 'helpers/object_creator.rb'
 before do
 	headers \
   'Content-Type' => 'application/json',
-  'Access-Control-Allow-Origin' => 'http://ec2-18-188-188-202.us-east-2.compute.amazonaws.com', 
+  'Access-Control-Allow-Origin' => '*', 
   'X-Content-Type-Options' => 'nosniff'
   if request.body.size > 0
     request.body.rewind
