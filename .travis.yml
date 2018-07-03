@@ -3,6 +3,8 @@ matrix:
     - language: ruby
       rvm:
         - 2.4.4
+      install:
+        - gem install tic_tac_toe_rz
       script:
         - bundle exec rspec spec/
 
