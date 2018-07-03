@@ -13,8 +13,8 @@ module Models
 
     def play_turn
       player_manager = ObjectCreator.player_manager(@game)
-      game_board = TicTacToeRZ::GameBoard.new(@game[:board])
-      computer_action = TicTacToeRZ::ComputerActions.new(game_board, player_manager)
+      game_board = TicTacToeRZ::GamePlay::GameBoard.new(@game[:board])
+      computer_action = TicTacToeRZ::GamePlay::ComputerActions.new(game_board, player_manager)
       current_player_symbol = @game[:current_player_symbol]
       spot = computer_action.get_best_move(game_board.board, current_player_symbol, DEPTH, BEST_MAX_MOVE, BEST_MIN_MOVE).index
       game_board.update_board(spot.to_i, current_player_symbol)

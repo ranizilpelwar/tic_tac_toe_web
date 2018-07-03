@@ -55,7 +55,7 @@ module Models
     end
 
     def construct
-      messenger = TicTacToeRZ::MessageGenerator
+      messenger = TicTacToeRZ::Languages::MessageGenerator
       @welcome = messenger.welcome
       @language_configuration_prompt = messenger.language_configuration_prompt
       @language_configuration_option = messenger.language_configuration_option

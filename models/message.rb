@@ -26,11 +26,11 @@ module Models
       language_adapter.default_language_tag!(@language_tag)
       case @parameters.length
       when 0
-        message_content = TicTacToeRZ::MessageGenerator.send(@type)
+        message_content = TicTacToeRZ::Languages::MessageGenerator.send(@type)
       when 1..4
-        message_content = TicTacToeRZ::MessageGenerator.send(@type, *@parameters)
+        message_content = TicTacToeRZ::Languages::MessageGenerator.send(@type, *@parameters)
       else
-        raise TicTacToeRZ::InvalidValueError, "unknown parameter"
+        raise TicTacToeRZ::Exceptions::InvalidValueError, "unknown parameter"
       end
       if message_content.class != Array
         @text << message_content

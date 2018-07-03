@@ -17,15 +17,15 @@ module Models
       @language_adapter = ObjectCreator.language_adapter
       @language_tag = @language_adapter.default_language_tag
       @language_adapter.default_language_tag!("en") if @language_tag != "en"
-      @messenger = TicTacToeRZ::MessageGenerator
+      @messenger = TicTacToeRZ::Languages::MessageGenerator
       @human_in_english = @messenger.human
       @computer_in_english = @messenger.computer
       @language_adapter.default_language_tag!(@language_tag) if @language_tag != "en"
-      @messenger = TicTacToeRZ::MessageGenerator
+      @messenger = TicTacToeRZ::Languages::MessageGenerator
     end
 
     def construct
-      match_manager = TicTacToeRZ::MatchTypeManager.new
+      match_manager = TicTacToeRZ::GamePlay::MatchTypeManager.new
       @match1_player1_type = match_manager.player_type(1,1)
       @match1_player2_type = match_manager.player_type(1,2)
       @match2_player1_type = match_manager.player_type(2,1)

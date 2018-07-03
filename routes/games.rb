@@ -11,13 +11,13 @@ post '/game' do
   begin
     game = Models::Game.new
     game.parse(@request_data)
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
     begin
       game.construct
-    rescue TicTacToeRZ::NilReferenceError, TicTacToeRZ::InvalidValueError => error
+    rescue TicTacToeRZ::Exceptions::NilReferenceError, TicTacToeRZ::Exceptions::InvalidValueError => error
       game.error_message = "#{ error.class.name }: #{ error.message }"
       status 400
     end

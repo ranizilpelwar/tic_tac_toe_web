@@ -14,7 +14,7 @@ module Models
 
     def parse(language_request_content)
       new_language_tag = language_request_content["language_tag"]
-      raise TicTacToeRZ::InvalidValueError if !@language_adapter.valid?(new_language_tag)
+      raise TicTacToeRZ::Exceptions::InvalidValueError if !@language_adapter.valid?(new_language_tag)
       @language_tag = new_language_tag
     end
 

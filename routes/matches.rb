@@ -9,7 +9,7 @@ get '/match_types' do
   begin
     match_types = Models::MatchTypes.new
     match_types.construct
-  rescue TicTacToeRZ::InvalidValueError => error
+  rescue TicTacToeRZ::Exceptions::InvalidValueError => error
     match_types.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
