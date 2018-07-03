@@ -48,7 +48,7 @@ RSpec.describe "A data_parser" do
                   }
       }'
       data = JSON.parse(request)
-      expect{output = DataParser.parse(data, "input", "fake_property")}.to raise_error(TicTacToeRZ::NilReferenceError)
+      expect{output = DataParser.parse(data, "input", "fake_property")}.to raise_error(TicTacToeRZ::Exceptions::NilReferenceError)
     end
 
     it "raises a NilReferenceError if the property is not found when there is no category" do
@@ -58,7 +58,7 @@ RSpec.describe "A data_parser" do
                   "second_player_symbol": "Y"
       }'
       data = JSON.parse(request)
-      expect{output = DataParser.parse(data, nil, "fake_property")}.to raise_error(TicTacToeRZ::NilReferenceError)
+      expect{output = DataParser.parse(data, nil, "fake_property")}.to raise_error(TicTacToeRZ::Exceptions::NilReferenceError)
     end
 
     it "raises a NilReferenceError if the category is not found" do
@@ -69,7 +69,7 @@ RSpec.describe "A data_parser" do
                   }
       }'
       data = JSON.parse(request)
-      expect{output = DataParser.parse(data, "category", "fake_property")}.to raise_error(TicTacToeRZ::NilReferenceError)
+      expect{output = DataParser.parse(data, "category", "fake_property")}.to raise_error(TicTacToeRZ::Exceptions::NilReferenceError)
     end
   end
 
@@ -110,7 +110,7 @@ RSpec.describe "A data_parser" do
                     "last_move_for_player1":-1,
                     "last_move_for_player2":-1}}'
       data = JSON.parse(request)
-      expect{ output = DataParser.parse_game(data) }.to raise_error(TicTacToeRZ::NilReferenceError)
+      expect{ output = DataParser.parse_game(data) }.to raise_error(TicTacToeRZ::Exceptions::NilReferenceError)
     end
 
     it "ignores the extra non-game-related property that was passed in as a parameter to the method" do

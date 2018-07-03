@@ -15,7 +15,7 @@ put '/human_players_turn' do
   begin
     game = DataParser.parse_game(@request_data)
     tile_on_board = DataParser.parse(@request_data, 'actions', 'tile_on_board')
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
@@ -24,7 +24,7 @@ put '/human_players_turn' do
       game = player.play_turn(tile_on_board)
       players = Models::Players.new(game)
       game = players.next_player
-    rescue TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
+    rescue TicTacToeRZ::Exceptions::NilReferenceError, TicTacToeRZ::Exceptions::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
@@ -34,7 +34,7 @@ put '/human_players_turn' do
     game_status = Models::GameStatus.new
     game_status.parse(JSON.parse(game_response))
     game_status.construct
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game_status.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
@@ -46,7 +46,7 @@ put '/computer_players_turn' do
   game = {}
   begin
     game = DataParser.parse_game(@request_data)
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
@@ -55,7 +55,7 @@ put '/computer_players_turn' do
       game = player.play_turn
       players = Models::Players.new(game)
       game = players.next_player
-    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
+    rescue TicTacToeRZ::Exceptions::InvalidValueError, TicTacToeRZ::Exceptions::NilReferenceError, TicTacToeRZ::Exceptions::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end
@@ -65,7 +65,7 @@ put '/computer_players_turn' do
     game_status = Models::GameStatus.new
     game_status.parse(JSON.parse(game_response))
     game_status.construct
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game_status.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
@@ -79,7 +79,7 @@ put '/undo_move' do
     puts "before parse"
     game = DataParser.parse_game(@request_data)
     puts "after parse"
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else
@@ -89,7 +89,7 @@ put '/undo_move' do
       puts "after initialize"
       game = game_movement.undo_move
       puts "after undo"
-    rescue TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError, TicTacToeRZ::GameRuleViolationError => error
+    rescue TicTacToeRZ::Exceptions::InvalidValueError, TicTacToeRZ::Exceptions::NilReferenceError, TicTacToeRZ::Exceptions::GameRuleViolationError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       game[:stack_trace] = "#{ error.backtrace.join("\n") }"
       status 400

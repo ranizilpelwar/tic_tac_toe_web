@@ -238,7 +238,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "23131b81-de60-4722-a706-fc535164d365",
+						"id": "10abdcd9-67f0-40db-bf41-83578fc66d40",
 						"type": "text/javascript",
 						"exec": [
 							"",
@@ -248,7 +248,7 @@
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
 							"});",
 							"",
-							"expected_error_message = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_error_message = '\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"An invalid move returns an error message\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error_message);",
@@ -294,7 +294,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1a8f1f64-7d7f-4d1c-ae5b-f7eef94c82a4",
+						"id": "0bf8c8cb-22df-4472-98c4-edf46ba27459",
 						"type": "text/javascript",
 						"exec": [
 							"expected_result_for_recording_player1_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"Y\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":true,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
@@ -303,7 +303,7 @@
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_recording_player1_move);",
 							"});",
 							"",
-							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"An invalid move returns an error\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error);",
@@ -349,7 +349,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2fd475d8-f2fd-46fb-b8c9-38cc36e57e59",
+						"id": "25963ca3-2d17-481d-b69a-c2df115a84be",
 						"type": "text/javascript",
 						"exec": [
 							"",
@@ -359,7 +359,7 @@
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
 							"});",
 							"",
-							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"A move to an occupied tile returns an error\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error);",
@@ -405,11 +405,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "46acae14-7b1d-4f6c-bf2f-e5cb2eff43c5",
+						"id": "14397225-9268-4c2d-87c6-1774558443fe",
 						"type": "text/javascript",
 						"exec": [
 							"",
-							"expected_error_for_missing_symbol = '\"TicTacToeRZ::NilReferenceError: category: game, property: current_player_symbol'",
+							"expected_error_for_missing_symbol = '\"TicTacToeRZ::Exceptions::NilReferenceError: category: game, property: current_player_symbol'",
 							"",
 							"pm.test(\"Error message contains the missing property\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error_for_missing_symbol);",
@@ -456,7 +456,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "596c61e5-29af-4316-8a63-93aa9c92d500",
+						"id": "e09010be-c18b-4736-ac18-73944055f4d4",
 						"type": "text/javascript",
 						"exec": [
 							"expected_result_for_invalid_move = '\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"X\",\"board\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1}'",
@@ -465,7 +465,7 @@
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
 							"});",
 							"",
-							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_error = '\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"An invalid move returns an error\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error);",
@@ -672,10 +672,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "789a5701-df53-4162-a2f5-f7ad069f672e",
+						"id": "815f8b14-a663-4e77-9f40-a0818ec551b7",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_game_with_no_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":\"\",\"player1_symbol\":\"\",\"player2_symbol\":\"\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::NilReferenceError:'",
+							"expected_result_for_game_with_no_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":\"\",\"player1_symbol\":\"\",\"player2_symbol\":\"\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::NilReferenceError:'",
 							"",
 							"pm.test(\"Expected game content is returned\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_game_with_no_match);",
@@ -712,10 +712,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d69239fd-46b9-4182-9900-e4e1fbfac361",
+						"id": "e81f141c-b864-4318-a0f3-5b83b7b16294",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_game_with_bad_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":7,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: match_number\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_game_with_bad_match = '{\"game\":{\"language_tag\":\"en\",\"match_number\":7,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError: match_number\",\"stack_trace\":\"\"}}'",
 							"",
 							"pm.test(\"Expected game content is returned\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_game_with_bad_match);",
@@ -752,10 +752,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5aaa0688-50d4-474d-a543-43ac8e5c2bcb",
+						"id": "fe9b42dd-78a9-4001-8916-34fe063f7ed8",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_identical_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: duplicate symbols\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_identical_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError: duplicate symbols\",\"stack_trace\":\"\"}}'",
 							"",
 							"pm.test(\"Expected game content is returned\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_identical_player);",
@@ -801,10 +801,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "83e1e04b-2f80-4dca-ab4c-2d73b5914447",
+						"id": "f49caf36-5cdd-40bb-b9c7-8c71262f9455",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"7\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"7\",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
 							"",
 							"pm.test(\"Expected game content is returned\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_numeric_player);",
@@ -850,10 +850,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "676e2fa0-ecf5-4df1-8e46-1d45b892349b",
+						"id": "62aa775c-f62a-4855-a55a-4b720685265c",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\" \",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
+							"expected_result_for_numeric_player = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\" \",\"player2_symbol\":\"X\",\"current_player_symbol\":\"\",\"board\":\"\",\"record_moves\":false,\"last_move_for_player1\":-1,\"last_move_for_player2\":-1},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError: symbol\",\"stack_trace\":\"\"}}'",
 							"",
 							"pm.test(\"Expected game content is returned\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_numeric_player);",
@@ -1087,10 +1087,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "84dd5629-ce43-48a1-93f0-5b270bb49b77",
+						"id": "fd2b56b0-5eff-4ab6-aba5-b2610f0a97e8",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result = '{\"statuses\":{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"},\"errors\":{\"error_message\":\"TicTacToeRZ::NilReferenceError';",
+							"expected_result = '{\"statuses\":{\"game_over\":false,\"tie_game\":false,\"winner\":\"\"},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::NilReferenceError';",
 							"",
 							"pm.test(\"When player2_symbol property is missing from request, default response is returned with no winner identified\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result);",
@@ -1234,10 +1234,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3d2aac05-9b13-42fe-9b62-d289b975bf06",
+						"id": "ace3488f-7cfd-4387-bf3a-861643e57dcf",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result_for_invalid_move = '\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
+							"expected_result_for_invalid_move = '\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError'",
 							"",
 							"pm.test(\"A full board returns an error when there are no more moves left to play\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result_for_invalid_move);",
@@ -1476,10 +1476,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7579dc43-76be-4a95-97c3-a9636243a34c",
+						"id": "880c4f55-ebdd-45a8-990f-406dbb303dbf",
 						"type": "text/javascript",
 						"exec": [
-							"expected_partial_result_when_there_are_no_moves_to_undo = 'error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_partial_result_when_there_are_no_moves_to_undo = 'error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"return an error message when there are no moves to undo\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_partial_result_when_there_are_no_moves_to_undo);",
@@ -1525,10 +1525,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "624e1984-94d3-49ca-8e1d-ad787f7d1b0a",
+						"id": "6f007308-9e24-48a1-ab54-54ddfebece84",
 						"type": "text/javascript",
 						"exec": [
-							"expected_error_type = 'error_message\":\"TicTacToeRZ::GameRuleViolationError'",
+							"expected_error_type = 'error_message\":\"TicTacToeRZ::Exceptions::GameRuleViolationError'",
 							"",
 							"pm.test(\"return an error message when there are no moves to undo\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_error_type);",
@@ -1715,10 +1715,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a41e0813-b09a-4d26-a57a-2716ed714008",
+						"id": "7042e9af-8647-4a9a-af13-851a2e2194ee",
 						"type": "text/javascript",
 						"exec": [
-							"expected_result = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"C\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"Y\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":2,\"last_move_for_player2\":5},\"errors\":{\"error_message\":\"TicTacToeRZ::InvalidValueError'",
+							"expected_result = '{\"game\":{\"language_tag\":\"en\",\"match_number\":2,\"player1_symbol\":\"X\",\"player2_symbol\":\"Y\",\"current_player_symbol\":\"C\",\"board\":[\"1\",\"2\",\"X\",\"4\",\"5\",\"Y\",\"7\",\"8\",\"9\"],\"record_moves\":false,\"last_move_for_player1\":2,\"last_move_for_player2\":5},\"errors\":{\"error_message\":\"TicTacToeRZ::Exceptions::InvalidValueError'",
 							"",
 							"pm.test(\"Raises error when current player doesn't match symbols for neither player 1 nor player 2\", function () {",
 							"    pm.expect(pm.response.text()).to.include(expected_result);",

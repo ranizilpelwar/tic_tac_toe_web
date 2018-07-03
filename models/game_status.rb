@@ -23,13 +23,13 @@ module Models
     end
 
     def construct
-      if TicTacToeRZ::TieGameValidator.tie_game?(@board)
+      if TicTacToeRZ::GameRules::TieGameRules.tie_game?(@board)
         @game_over = true
         @tie_game = true
-      elsif TicTacToeRZ::GameOverValidator.win_for_player?(@player1_symbol, @board)
+      elsif TicTacToeRZ::GameRules::GameOverRules.win_for_player?(@player1_symbol, @board)
         @game_over = true
         @winner = @player1_symbol
-      elsif TicTacToeRZ::GameOverValidator.win_for_player?(@player2_symbol, @board)
+      elsif TicTacToeRZ::GameRules::GameOverRules.win_for_player?(@player2_symbol, @board)
         @game_over = true
         @winner = @player2_symbol
       end

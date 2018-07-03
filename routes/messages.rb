@@ -18,14 +18,14 @@ put '/message_content' do
     matches.construct
     languages = Models::Language.new
     languages.construct
-  rescue NoMethodError, TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+  rescue NoMethodError, TicTacToeRZ::Exceptions::InvalidValueError, TicTacToeRZ::Exceptions::NilReferenceError => error
     messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
     begin
       messages.construct
       default_language.reset
-    rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
+    rescue NoMethodError, TicTacToeRZ::Exceptions::InvalidValueError => error
       messages.error_message = "#{ error.class.name }: #{ error.message }"
       status 400  
     end
@@ -41,7 +41,7 @@ get '/message_content' do
     matches.construct
     languages = Models::Language.new
     languages.construct
-  rescue TicTacToeRZ::InvalidValueError, NoMethodError, ArgumentError => error
+  rescue TicTacToeRZ::Exceptions::InvalidValueError, NoMethodError, ArgumentError => error
     messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end

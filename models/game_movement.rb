@@ -8,12 +8,12 @@ module Models
     end
   
     def undo_move
-      match_manager = TicTacToeRZ::MatchTypeManager.new
+      match_manager = TicTacToeRZ::GamePlay::MatchTypeManager.new
       match_number = @game[:match_number]
       player_manager = ObjectCreator.player_manager(@game)
       current_player_symbol = @game[:current_player_symbol]
       player_manager.update_current_player if current_player_symbol == @game[:player2_symbol]
-      game_board = TicTacToeRZ::GameBoard.new(@game[:board])
+      game_board = TicTacToeRZ::GamePlay::GameBoard.new(@game[:board])
       player_movement_manager = ObjectCreator.player_movement_manager(@game)
       player_movement_manager.update_last_move_for_player(1, @game[:last_move_for_player1])
       player_movement_manager.update_last_move_for_player(2, @game[:last_move_for_player2])

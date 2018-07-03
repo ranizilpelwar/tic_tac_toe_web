@@ -7,8 +7,8 @@ module Models
     end
 
     def play_turn(tile_on_board)
-      game_board = TicTacToeRZ::GameBoard.new(@game[:board])
-      return_result = TicTacToeRZ::GamePlayValidator.evaluate_move(game_board, tile_on_board)
+      game_board = TicTacToeRZ::GamePlay::GameBoard.new(@game[:board])
+      return_result = TicTacToeRZ::GameRules::GamePlayRules.evaluate_move(game_board, tile_on_board)
       valid_move = return_result.is_valid_move
       spot = return_result.index_of_board
       current_player_symbol = @game[:current_player_symbol]
@@ -23,7 +23,7 @@ module Models
             end
         end
       else
-        raise TicTacToeRZ::GameRuleViolationError, "valid_move = #{valid_move}"
+        raise TicTacToeRZ::Exceptions::GameRuleViolationError, "valid_move = #{valid_move}"
       end
       @game
     end

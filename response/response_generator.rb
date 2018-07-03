@@ -84,7 +84,7 @@ module ResponseGenerator
   end
 
   def self.generate_all_messages(message_data, match_data, language_data)
-    messenger = TicTacToeRZ::MessageGenerator
+    messenger = TicTacToeRZ::Languages::MessageGenerator
     data = { "messages": {
                   "welcome": message_data[:welcome],
                   "language_configuration_prompt": message_data[:language_configuration_prompt], 

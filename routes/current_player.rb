@@ -10,14 +10,14 @@ put '/current_player' do
   game = {}
   begin
     game = DataParser.parse_game(@request_data)
-  rescue SyntaxError, NoMethodError, TicTacToeRZ::NilReferenceError => error
+  rescue SyntaxError, NoMethodError, TicTacToeRZ::Exceptions::NilReferenceError => error
     game[:error_message] = "#{ error.class.name }: #{ error.message }"
     status 400
   else 
     begin
       players = Models::Players.new(game)
       game = players.next_player
-    rescue TicTacToeRZ::InvalidValueError => error
+    rescue TicTacToeRZ::Exceptions::InvalidValueError => error
       game[:error_message] = "#{ error.class.name }: #{ error.message }"
       status 400
     end

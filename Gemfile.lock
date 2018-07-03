@@ -70,7 +70,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     thread_safe (0.3.6)
-    tic_tac_toe_rz (1.1.00)
+    tic_tac_toe_rz (2.0.00)
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)

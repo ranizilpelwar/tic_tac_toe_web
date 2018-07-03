@@ -32,7 +32,7 @@ module Models
                       :player1_symbol => @player1_symbol, 
                       :player2_symbol => @player2_symbol}
       player_manager = ObjectCreator.player_manager(player_data)
-      game_board = TicTacToeRZ::GameBoard.new(TicTacToeRZ::GameBoard.create_board)
+      game_board = TicTacToeRZ::GamePlay::GameBoard.new(TicTacToeRZ::GamePlay::GameBoard.create_board)
       player_movement_manager = ObjectCreator.player_movement_manager(player_data)
       @current_player_symbol = player_manager.current_player.symbol
       @board = game_board.board

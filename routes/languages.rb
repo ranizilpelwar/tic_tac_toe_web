@@ -16,7 +16,7 @@ get '/default_language_tag' do
   begin
     language = Models::Language.new
     data[:language_tag] = language.language_tag
-  rescue TicTacToeRZ::NilReferenceError => error
+  rescue TicTacToeRZ::Exceptions::NilReferenceError => error
     error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   end
@@ -34,13 +34,13 @@ put '/default_language_tag' do
     matches.construct
     languages = Models::Language.new
     languages.construct
-  rescue NoMethodError, TicTacToeRZ::InvalidValueError, TicTacToeRZ::NilReferenceError => error
+  rescue NoMethodError, TicTacToeRZ::Exceptions::InvalidValueError, TicTacToeRZ::Exceptions::NilReferenceError => error
     messages.error_message = "#{ error.class.name }: #{ error.message }"
     status 400
   else
     begin
       messages.construct
-    rescue NoMethodError, TicTacToeRZ::InvalidValueError => error
+    rescue NoMethodError, TicTacToeRZ::Exceptions::InvalidValueError => error
       messages.error_message = "#{ error.class.name }: #{ error.message }"
       status 400  
     end
