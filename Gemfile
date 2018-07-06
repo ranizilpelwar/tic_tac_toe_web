@@ -6,6 +6,7 @@ gem "sinatra-contrib"
 gem "capistrano", require: false
 gem "capistrano-rbenv"
 gem "capistrano-bundler"
+gem "capistrano-passenger", ">= 0.1.1"
 gem "capistrano-rvm"
 gem "backports"
 gem "diff-lcs"

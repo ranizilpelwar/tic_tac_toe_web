@@ -8,7 +8,8 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 
 set :stage, :production
-server "ec2-user@ec2-18-191-247-154.us-east-2.compute.amazonaws.com", user: "ranizilpelwar", roles: %w{web app db}
+server "ec2-18-191-247-154.us-east-2.compute.amazonaws.com", user: "ranizilpelwar", roles: %w{web app db}
+#server "ec2-user@ec2-18-191-247-154.us-east-2.compute.amazonaws.com", user: "ranizilpelwar", roles: %w{web app db}
 #server "ec2-13-58-135-33.us-east-2.compute.amazonaws.com", user: "tictactoeclientuser", roles: %w{web app db}
 set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
